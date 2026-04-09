@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess vs Computer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <h1>Chess vs Computer</h1>
+      <p id="status">Choose a level to begin.</p>
+      <div class="controls">
+        <button id="new-game-btn" type="button">New Game</button>
+        <button id="hint-btn" class="hidden" type="button">Hint</button>
+        <span id="level-label">Level: -</span>
+      </div>
+      <p id="coach-feedback" class="hidden" aria-live="polite"></p>
+      <div id="board" class="board" aria-label="Chess board"></div>
+    </main>
+
+    <div id="level-modal" class="modal open" role="dialog" aria-modal="true" aria-labelledby="level-title">
+      <div class="modal-card">
+        <h2 id="level-title">Choose Computer Level</h2>
+        <p>Select how strong the computer should be.</p>
+        <label for="level-select">Difficulty</label>
+        <select id="level-select">
+          <option value="1">Level 1 - Novice (Training + Random Moves)</option>
+          <option value="2">Level 2 - Easy (Depth 1)</option>
+          <option value="3" selected>Level 3 - Medium (Depth 2)</option>
+          <option value="4">Level 4 - Hard (Depth 3)</option>
+        </select>
+        <button id="start-btn" type="button">Start Game</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

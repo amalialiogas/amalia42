@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About & Lab Notes — amalia42</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ── About layout ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 6rem;
+    }
+
+    .about-bio h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 2.2rem; font-weight: 600;
+      color: #fff; line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .about-bio h2 em { font-style: italic; color: var(--accent); }
+    .about-bio p {
+      font-size: 1rem; color: var(--muted);
+      line-height: 1.8; margin-bottom: 1.1rem;
+    }
+    .about-bio p strong { color: var(--text); font-weight: 500; }
+
+    .about-links { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 2rem; }
+
+    /* Identity card */
+    .id-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem;
+      position: relative; overflow: hidden;
+      align-self: start;
+    }
+    .id-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--coral));
+    }
+    .id-badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 1.5rem; display: block;
+    }
+    .id-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, #1e3a5e, #2a1e3a);
+      border: 2px solid rgba(232,197,71,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 1.4rem; color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+    .id-name {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem; font-weight: 600; color: #fff;
+      margin-bottom: 0.25rem;
+    }
+    .id-role {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem; color: var(--accent);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .id-facts { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .id-facts li {
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      font-size: 0.88rem; color: var(--muted); line-height: 1.5;
+    }
+    .id-facts li span:first-child {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); opacity: 0.6; min-width: 64px; padding-top: 0.15rem;
+    }
+    .id-facts li span:last-child { color: var(--text); }
+
+    /* ── The number 42 ── */
+    .forty-two-section {
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.5rem;
+      margin-bottom: 5rem;
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 2.5rem; align-items: center;
+    }
+    .big-42 {
+      font-family: 'Fraunces', serif;
+      font-size: 8rem; font-weight: 600;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(232,197,71,0.35);
+      line-height: 1; user-select: none;
+    }
+    .forty-two-section p {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.8;
+    }
+    .forty-two-section p strong { color: var(--text); font-weight: 500; }
+
+    /* ── Lab Notes ── */
+    .lab-header {
+      display: flex; align-items: baseline;
+      justify-content: space-between; margin-bottom: 2rem;
+    }
+    .lab-header h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem; font-weight: 600; color: #fff;
+    }
+    .lab-header h2 em { font-style: italic; color: var(--coral); }
+    .lab-header a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    .lab-header a:hover { color: var(--accent); }
+
+    /* Notes timeline */
+    .notes-timeline { position: relative; }
+    .notes-timeline::before {
+      content: ''; position: absolute;
+      left: 78px; top: 0; bottom: 0; width: 1px;
+      background: var(--border);
+    }
+
+    .note-entry {
+      display: grid; grid-template-columns: 78px 1fr;
+      gap: 2rem; margin-bottom: 2.5rem;
+      position: relative;
+    }
+    .note-entry::before {
+      content: ''; position: absolute;
+      left: 71px; top: 0.85rem;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--deep); border: 2px solid var(--border);
+      z-index: 1; transition: border-color 0.3s;
+    }
+    .note-entry:hover::before { border-color: var(--coral); }
+
+    .note-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); padding-top: 0.9rem; text-align: right;
+      line-height: 1.4;
+    }
+    .note-body {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.5rem;
+      transition: border-color 0.3s;
+    }
+    .note-entry:hover .note-body { border-color: rgba(224,122,95,0.3); }
+
+    .note-type {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--coral); margin-bottom: 0.5rem; display: block;
+    }
+    .note-body h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem; font-weight: 600; color: #fff;
+      margin-bottom: 0.6rem; line-height: 1.3;
+    }
+    .note-body p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    .note-body p strong { color: var(--text); font-weight: 500; }
+
+    .note-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.9rem; }
+
+    /* All links inside the lab notes timeline — white, visited or not */
+    .notes-timeline a,
+    .notes-timeline a:visited { color: #fff; }
+    .notes-timeline a:hover   { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<div id="cursor"><div class="cursor-dot"></div></div>
+<div style="position:fixed;top:0;left:0;pointer-events:none;z-index:9998;" id="cursor-ring-wrap">
+  <div class="cursor-ring" style="position:relative;"></div>
+</div>
+<div class="starfield" id="stars"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">amalia<em>42</em>.com</a>
+  <ul class="nav-links">
+    <li><a href="vibe.html">Vibe Lab</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="tutorials.html">Tutorials</a></li>
+    <li><a href="about.html" class="active">Lab Notes</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <span class="page-tag">04 / About & Lab Notes</span>
+  <h1>The hitchhiker<br>behind the <em>cursor.</em></h1>
+  <p>Director of IT, educator, photographer, and maker of things that may or may not work.</p>
+</header>
+
+<div class="page-content">
+
+  <!-- About section -->
+  <div class="about-grid">
+    <div class="about-bio" data-reveal>
+      <h2>Hi, I'm <em>Amalia.</em></h2>
+      <p>I'm the Director of IT at <strong>The Study</strong>, an independent school in Montreal where I spend my days building things — infrastructure, educational technology, and curriculum for students from kindergarten to Grade 11.</p>
+      <p>This site is where I put everything that doesn't fit inside a work doc. Experiments in vibe coding, photos I'm proud of, tutorials I wish had existed when I was learning, and notes on what I'm thinking about.</p>
+      <p>My first website was created in the early 1990s using HTML (I know. I'm dating myself). Since then, I have been using HTML, CSS, Python amongst many others.</p>
+      <p>The 42 in the URL is, of course, the answer. I'm still working on the question.</p>
+      <div class="about-links">
+        <a href="mailto:amalialiogas@gmail.com" class="btn btn-primary">Say hello</a>
+        <a href="tutorials.html" class="btn btn-ghost">Read tutorials</a>
+      </div>
+    </div>
+
+    <div class="id-card" data-reveal>
+      <span class="id-badge">Hitchhiker ID</span>
+      <div class="id-avatar">A</div>
+      <div class="id-name">Amalia</div>
+      <div class="id-role">Director of IT · Educator · Maker</div>
+      <ul class="id-facts">
+        <li><span>Location</span><span>Montreal, QC</span></li>
+        <li><span>Day job</span><span>The Study (K-11 independent school)</span></li>
+        <li><span>Built with</span><span>HTML, CSS, JS, instinct</span></li>
+        <li><span>Currently</span><span>Teaching AI to educators</span></li>
+        <li><span>Towel</span><span>Always packed ✓</span></li>
+        <li><span>Panic level</span><span>Don't.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- The number 42 -->
+  <div class="forty-two-section" data-reveal>
+    <div class="big-42">42</div>
+    <div>
+      <p>In <em>The Hitchhiker's Guide to the Galaxy</em>, a supercomputer spends 7.5 million years calculating the answer to life, the universe, and everything. The answer is <strong>42</strong>. The problem, of course, is that nobody knows what the question was.</p>
+      <p>That feels right for a personal website. You build the thing. You figure out what it's for later. The number just happened to be available as a domain.</p>
+    </div>
+  </div>
+
+  <!-- Lab Notes -->
+  <div class="lab-header">
+    <h2>Lab <em>notes.</em></h2>
+    <a href="#">Subscribe to updates →</a>
+  </div>
+
+  <div class="notes-timeline">
+
+    
+    <div class="note-entry" data-reveal>
+      <div class="note-date">Jun<br>2026</div>
+      <div class="note-body">
+        <span class="note-type">Conference</span>
+        <h3>ICGS Global Forum</h3>
+        <p>Attending the ICGS Global Forum on Girls' Education in Toronto.</p>
+        <div class="note-tags"><span class="tag">Conference</span><span class="tag">Education</span></div>
+      </div>
+    </div>
+
+
+    <div class="note-entry" data-reveal>
+      <div class="note-date">Jun<br>2026</div>
+      <div class="note-body">
+        <span class="note-type">Conference</span>
+        <h3>CAIS National Leaders Conference</h3>
+        <p>Giving a presentation on exploring the intersection of AI and creativity in school clubs, robotics teams or entrepreneurial programming. Empowering students to lead local action projects, advocacy campaigns or civic literacy initiatives within co-curriculars.</p>
+        <div class="note-tags"><span class="tag">Conference</span><span class="tag">Education</span></div>
+      </div>
+    </div>
+
+
+    <div class="note-entry" data-reveal>
+      <div class="note-date">Apr<br>2026</div>
+      <div class="note-body">
+        <span class="note-type">Update</span>
+        <h3>amalia42.com is live</h3>
+        <p>Built the whole thing in a weekend using vibe coding. Turns out giving yourself no requirements is the fastest way to actually ship something. The starfield was a last-minute addition and is now my favourite part.</p>
+        <div class="note-tags"><span class="tag">Meta</span><span class="tag">Web dev</span></div>
+      </div>
+    </div>
+
+
+
+    <div class="note-entry" data-reveal>
+      <div class="note-date">Mar<br>2026</div>
+      <div class="note-body">
+        <span class="note-type">Conference</span>
+        <h3>Global Impact Educators 2026 site shipped</h3>
+        <p>Built the <A HREF="https://www.globalimpacteducators.org/">conference site</a> for our annual virtual educator gathering — <strong>13 speakers across 9 countries.</strong> Working with ISTE's Global Impact group highly statisfying.The conference takes place on April 18, 2026.</p>
+        <div class="note-tags"><span class="tag">Conference</span><span class="tag">Education</span><span class="tag">Web dev</span></div>
+      </div>
+    </div>
+
+
+
+    <div class="note-entry" data-reveal>
+      <div class="note-date">Jan<br>2026</div>
+      <div class="note-body">
+        <span class="note-type">Thinking</span>
+        <h3>Why I started calling it "vibe coding" unironically</h3>
+        <p>Decided to kickstart the year by moving my senior classes into vibe coding. Modelled learning by learning alongside my students.</p>
+        <div class="note-tags"><span class="tag">Process</span><span class="tag">Creativity</span></div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+
+<footer>
+  <p>© 2025 <a href="../index.html">amalia42.com</a> — mostly harmless</p>
+  <p>← <a href="../index.html">Back to home</a></p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+  const ringWrap = document.getElementById('cursor-ring-wrap');
+  let rx=0,ry=0,mx=0,my=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringWrap.style.transform=`translate(${rx-16}px,${ry-16}px)`;requestAnimationFrame(loop);})();
+</script>
+</body>
+</html>

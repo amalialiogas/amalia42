@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>amalia42 — a digital playground</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Hero ── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 3rem 4rem;
+      gap: 2rem;
+    }
+    .dont-panic {
+      display: inline-block;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--deep); background: var(--accent);
+      padding: 0.35rem 0.9rem; border-radius: 4px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3rem, 5.5vw, 5rem);
+      font-weight: 600; line-height: 1.05; color: #fff;
+    }
+    .hero h1 em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.75; margin: 1.5rem 0 2.5rem;
+      max-width: 440px;
+    }
+    .hero-sub strong { color: var(--text); font-weight: 500; }
+    .cta-row { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* hero image side */
+    .hero-image {
+      position: relative;
+      display: flex; align-items: flex-end; justify-content: center;
+    }
+    .hero-img {
+      width: 100%; max-width: 430px; height: auto;
+      position: relative; z-index: 2;
+      animation: float 7s ease-in-out infinite;
+      filter: drop-shadow(0 40px 70px rgba(0,0,0,0.6));
+    }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+    .glow-ground {
+      position: absolute; bottom: -30px; left: 50%;
+      transform: translateX(-50%);
+      width: 300px; height: 80px;
+      background: radial-gradient(ellipse, rgba(126,200,160,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .marvin-bubble {
+      position: absolute; bottom: 12%; right: 0;
+      background: rgba(15,22,38,0.92);
+      border: 1px solid rgba(232,197,71,0.25);
+      border-radius: 12px; padding: 0.7rem 1rem;
+      max-width: 190px; font-size: 0.74rem;
+      color: var(--muted); font-style: italic; line-height: 1.55;
+      z-index: 10;
+    }
+    .marvin-bubble::after {
+      content: '— Marvin';
+      display: block; color: var(--accent);
+      font-style: normal; font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; margin-top: 0.4rem;
+    }
+
+    /* scroll hint */
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0.5rem; z-index: 10;
+    }
+    .scroll-hint span {
+      font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); font-family: 'Space Mono', monospace;
+    }
+    .scroll-line {
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      animation: scrollPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%   { opacity: 0; transform: scaleY(0); transform-origin: top; }
+      50%  { opacity: 1; transform: scaleY(1); }
+      100% { opacity: 0; transform: translateY(18px); }
+    }
+
+    /* ── Sections grid ── */
+    .home-sections { position: relative; z-index: 1; padding: 5rem 3rem 7rem; }
+    .section-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 3rem;
+      display: flex; align-items: center; gap: 1.2rem;
+    }
+    .section-eyebrow::after {
+      content: ''; flex: 1; height: 1px; background: rgba(232,197,71,0.18);
+    }
+
+    .nav-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    .nav-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 2.2rem 2rem;
+      text-decoration: none; display: block;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, background 0.3s;
+    }
+    .nav-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: var(--c, var(--accent));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s;
+    }
+    .nav-card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,0.14); }
+    .nav-card:hover::before { transform: scaleX(1); }
+
+    .card-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 0.12em; margin-bottom: 1.25rem;
+    }
+    .card-icon-wrap {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.2rem;
+      background: var(--faint);
+      border: 1px solid var(--border);
+    }
+    .nav-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.45rem; font-weight: 600; color: #fff;
+      margin-bottom: 0.6rem; line-height: 1.2;
+    }
+    .nav-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.65; }
+    .card-arrow {
+      margin-top: 1.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem; letter-spacing: 0.1em;
+      color: var(--c, var(--accent));
+    }
+
+    /* planet decorations */
+    .p1 { width:100px; height:100px; top:12%; right:-30px;
+          background: radial-gradient(circle at 40% 35%,#1e3a5e,#060d1a); opacity:.45; }
+    .p2 { width:55px; height:55px; bottom:28%; left:1%;
+          background: radial-gradient(circle at 40% 35%,#3a2a10,#100d04); opacity:.4; }
+  </style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cursor"><div class="cursor-dot"></div></div>
+<div style="position:fixed;top:0;left:0;pointer-events:none;z-index:9998;" id="cursor-ring-wrap">
+  <div class="cursor-ring" style="position:relative;"></div>
+</div>
+
+<!-- Stars -->
+<div class="starfield" id="stars"></div>
+
+<!-- Planets -->
+<div class="planet p1"></div>
+<div class="planet p2"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="index.html" class="nav-logo">amalia<em>42</em>.com</a>
+  <ul class="nav-links">
+    <li><a href="pages/vibe.html">Vibe Lab</a></li>
+    <li><a href="pages/photography.html">Photography</a></li>
+    <li><a href="pages/tutorials.html">Tutorials</a></li>
+    <li><a href="pages/about.html">Lab Notes</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="dont-panic fade-up fade-up-1">Don't Panic!</div>
+    <h1 class="fade-up fade-up-2">A digital<br>playground<br>for <em>curious</em><br>makers.</h1>
+    <p class="hero-sub fade-up fade-up-3">
+      Games, experiments, photography, and half-baked ideas —
+      all orbiting the number <strong>42</strong>.
+      The answer is here somewhere.
+    </p>
+    <div class="cta-row fade-up fade-up-4">
+      <a href="pages/vibe.html" class="btn btn-primary">Explore the lab</a>
+      <a href="pages/about.html" class="btn btn-ghost">Read lab notes</a>
+    </div>
+  </div>
+
+  <div class="hero-image fade-up fade-up-3">
+    <div class="glow-ground"></div>
+    <img src="images/hero.png" alt="Hitchhiking through space with Marvin" class="hero-img">
+    <div class="marvin-bubble">"I could calculate your chance of survival, but you won't like it."</div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- Nav Cards -->
+<section class="home-sections">
+  <div class="section-eyebrow">Sectors of the galaxy</div>
+  <div class="nav-cards">
+
+    <a href="pages/vibe.html" class="nav-card" style="--c:var(--accent)" data-reveal>
+      <div class="card-num">01 / 04</div>
+      <div class="card-icon-wrap">🎮</div>
+      <h3>Vibe-coded sites & games</h3>
+      <p>Experiments built with gut, instinct, and a healthy disregard for best practices. Click around. Break things.</p>
+      <div class="card-arrow">→ Enter the arcade</div>
+    </a>
+
+    <a href="pages/photography.html" class="nav-card" style="--c:var(--green)" data-reveal>
+      <div class="card-num">02 / 04</div>
+      <div class="card-icon-wrap">📷</div>
+      <h3>Photography</h3>
+      <p>Moments caught mid-flight. Cities, light, strangers, and the occasional galaxy. Shot on whatever was in my bag.</p>
+      <div class="card-arrow" style="color:var(--green)">→ View the gallery</div>
+    </a>
+
+    <a href="pages/tutorials.html" class="nav-card" style="--c:var(--blue)" data-reveal>
+      <div class="card-num">03 / 04</div>
+      <div class="card-icon-wrap">📡</div>
+      <h3>Tutorials</h3>
+      <p>Things I figured out and decided to write down. Mostly about making stuff on the web and teaching others to do the same.</p>
+      <div class="card-arrow" style="color:var(--blue)">→ Read the guides</div>
+    </a>
+
+    <a href="pages/about.html" class="nav-card" style="--c:var(--coral)" data-reveal>
+      <div class="card-num">04 / 04</div>
+      <div class="card-icon-wrap">🔬</div>
+      <h3>About / lab notes</h3>
+      <p>Who built this and why. Ongoing notes from the edge of the internet — part diary, part changelog, part rant.</p>
+      <div class="card-arrow" style="color:var(--coral)">→ Meet the hitchhiker</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 <a href="index.html">amalia42.com</a> — mostly harmless</p>
+  <p>Built with curiosity & Space Mono</p>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  // Cursor ring follow (separate from dot)
+  const ringWrap = document.getElementById('cursor-ring-wrap');
+  let rx = 0, ry = 0, mx = 0, my = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function loop() {
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ringWrap.style.transform = `translate(${rx-16}px,${ry-16}px)`;
+    requestAnimationFrame(loop);
+  })();
+</script>
+</body>
+</html>

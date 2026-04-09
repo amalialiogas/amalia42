@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pong</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hud">
+        <div class="title">PONG</div>
+        <div class="scoreboard" aria-live="polite">
+          <span id="score-left">0</span>
+          <span class="divider">:</span>
+          <span id="score-right">0</span>
+        </div>
+      </header>
+
+      <section class="arena">
+        <canvas id="game" width="900" height="540" aria-label="Pong game"></canvas>
+        <div id="menu" class="menu" role="dialog" aria-modal="true" aria-label="Game menu">
+          <div class="menu-card">
+            <div class="menu-title">Classic Pong</div>
+
+            <div class="menu-section">
+              <div class="menu-label">Mode</div>
+              <div class="menu-options" role="radiogroup" aria-label="Game mode">
+                <button class="menu-option active" data-mode="single" aria-pressed="true">Single Player</button>
+                <button class="menu-option" data-mode="multi" aria-pressed="false">Two Players</button>
+              </div>
+            </div>
+
+            <div class="menu-section">
+              <div class="menu-label">Difficulty</div>
+              <div class="menu-options" role="radiogroup" aria-label="Difficulty">
+                <button class="menu-option" data-difficulty="easy" aria-pressed="false">Easy</button>
+                <button class="menu-option active" data-difficulty="medium" aria-pressed="true">Medium</button>
+                <button class="menu-option" data-difficulty="hard" aria-pressed="false">Hard</button>
+              </div>
+            </div>
+
+            <div class="menu-section toggles">
+              <label class="toggle">
+                <input type="checkbox" id="music-toggle" checked />
+                <span>Music</span>
+              </label>
+              <label class="toggle">
+                <input type="checkbox" id="sfx-toggle" checked />
+                <span>Sound FX</span>
+              </label>
+            </div>
+
+            <button id="start-btn" class="menu-start">Start Game</button>
+            <p class="menu-help">W/S and ↑/↓ to move. Touch and drag on your side on mobile.</p>
+          </div>
+        </div>
+        <div id="overlay" class="overlay" role="status" aria-live="polite">
+          <p class="overlay-title">Press Space to serve</p>
+          <p class="overlay-sub">Left: W/S | Right: Up/Down | C: toggle CPU | P: pause</p>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <div>First to 10 wins</div>
+        <div id="status">Mode: Single Player</div>
+      </footer>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>

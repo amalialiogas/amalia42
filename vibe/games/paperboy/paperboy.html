@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paperboy</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="hud">
+        <div class="stat"><span>Score</span><strong id="score">0</strong></div>
+        <div class="stat"><span>Lives</span><strong id="lives">3</strong></div>
+        <div class="stat"><span>Papers</span><strong id="papers">15</strong></div>
+        <div class="stat"><span>Deliveries</span><strong id="deliveries">0</strong></div>
+        <div class="stat"><span>Distance</span><strong id="distance">0%</strong></div>
+      </header>
+
+      <section class="canvas-wrap">
+        <canvas id="game" width="960" height="600" aria-label="Paperboy game area"></canvas>
+
+        <div id="overlay" class="overlay visible">
+          <h1>PAPERBOY</h1>
+          <p>Deliver papers, dodge traffic, survive your route.</p>
+          <ul>
+            <li>Move: Arrow keys or A/D</li>
+            <li>Throw: Space (auto target), Q (left), E (right)</li>
+            <li>Speed: W/S or Up/Down</li>
+            <li>Pause: P</li>
+          </ul>
+          <button id="startBtn" type="button">Start Route</button>
+        </div>
+
+        <button id="muteBtn" class="mute-btn" type="button" aria-pressed="false">Sound: On</button>
+      </section>
+
+      <footer class="touch-controls" aria-hidden="true">
+        <button class="touch-btn" data-control="left" type="button">Left</button>
+        <button class="touch-btn" data-control="throw" type="button">Throw</button>
+        <button class="touch-btn" data-control="right" type="button">Right</button>
+      </footer>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

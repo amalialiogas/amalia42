@@ -1,0 +1,160 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+
+:root {
+  --bg: #000000;
+  --panel: #050505;
+  --accent: #42ff42;
+  --accent-2: #42ff42;
+  --text: #ffffff;
+  --muted: #9aa0a6;
+  --danger: #ff6a6a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Press Start 2P", "VT323", "Courier New", monospace;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+}
+
+.shell {
+  width: min(900px, 100%);
+  display: grid;
+  gap: 16px;
+  max-height: 100vh;
+}
+
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: transparent;
+  padding: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 12px;
+}
+
+.hud .label {
+  color: var(--text);
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.hud .value {
+  color: var(--accent);
+}
+
+.lives {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.life-icon {
+  width: 18px;
+  height: 12px;
+  background: var(--accent);
+  position: relative;
+}
+
+.life-icon::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: -4px;
+  width: 6px;
+  height: 4px;
+  background: var(--accent);
+}
+
+#game {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid #101010;
+  max-height: 70vh;
+  background: #000000;
+}
+
+.panel {
+  background: transparent;
+  border: 2px solid #101010;
+  padding: 12px 16px;
+  display: grid;
+  gap: 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.panel .controls {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.panel button {
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--accent-2);
+  padding: 10px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.panel button.active {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(124, 255, 155, 0.2) inset;
+}
+
+.panel button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(66, 255, 66, 0.3);
+}
+
+.panel button:active {
+  transform: translateY(0);
+}
+
+.panel p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+  .hud {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .panel .controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .panel {
+    font-size: 10px;
+  }
+}
+
+@media (max-height: 860px) {
+  #game {
+    max-height: 62vh;
+  }
+
+  .hud,
+  .panel {
+    padding: 12px 16px;
+  }
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Snake</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="top">
+        <div>
+          <h1>Snake</h1>
+          <p class="sub">Eat food. Don’t hit walls or yourself.</p>
+        </div>
+        <div class="scoreboard">
+          <div class="score">Score: <span id="score">0</span></div>
+          <div class="status" id="status">Ready</div>
+        </div>
+      </header>
+
+      <section class="board">
+        <canvas id="game" width="400" height="400" role="img" aria-label="Snake game board"></canvas>
+      </section>
+
+      <section class="controls" aria-label="Game controls">
+        <div class="pad" aria-hidden="false">
+          <button type="button" class="control" data-dir="up">▲</button>
+          <button type="button" class="control" data-dir="left">◀</button>
+          <button type="button" class="control" data-dir="down">▼</button>
+          <button type="button" class="control" data-dir="right">▶</button>
+        </div>
+        <div class="actions">
+          <button type="button" id="pause">Pause</button>
+          <button type="button" id="restart">Restart</button>
+          <button type="button" id="sound" aria-pressed="true">Sound: On</button>
+        </div>
+        <p class="help">Keys: Arrows or WASD. Space to pause. Enter to restart. M to mute.</p>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

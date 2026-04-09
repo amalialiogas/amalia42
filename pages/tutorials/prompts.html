@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ═══════════════════════════════════════════
+       STEP 1: Change the page title
+       Format: "Your Tutorial Title — amalia42"
+  ═══════════════════════════════════════════ -->
+  <title>Prompts — amalia42</title>
+
+  <link rel="stylesheet" href="../../css/style.css">
+  <style>
+    /* ── Article layout: TOC sidebar + reading column ── */
+    .article-layout {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 5rem;
+      align-items: start;
+      max-width: 1100px;
+    }
+
+    /* ── Table of contents (sticky sidebar) ── */
+    .toc {
+      position: sticky; top: 7rem;
+      padding-top: 0.25rem;
+    }
+    .toc-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem; display: block;
+    }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.15rem; }
+    .toc-list a {
+      font-size: 0.83rem; color: var(--muted);
+      text-decoration: none; padding: 0.3rem 0.6rem;
+      border-radius: 6px; display: block;
+      border-left: 2px solid transparent;
+      transition: all 0.2s; line-height: 1.4;
+    }
+    .toc-list a:hover { color: var(--text); background: var(--faint); }
+    .toc-list a.active { color: var(--accent); border-left-color: var(--accent); background: rgba(232,197,71,0.05); }
+    .toc-list .toc-sub { padding-left: 1rem; font-size: 0.78rem; }
+
+    .toc-divider { height: 1px; background: var(--border); margin: 1rem 0.6rem; }
+
+    .toc-back {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.08em;
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.3rem 0.6rem; transition: color 0.2s;
+    }
+    .toc-back:hover { color: var(--accent); }
+
+    /* ── Article header ── */
+    .article-header { margin-bottom: 3rem; }
+
+    .article-meta-row {
+      display: flex; align-items: center; gap: 0.75rem;
+      flex-wrap: wrap; margin-bottom: 1.25rem;
+    }
+    .article-cat {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+    }
+    /* category colours — use whichever matches your tutorial */
+    .cat-web    { background: rgba(232,197,71,0.1);  color: var(--accent); }
+    .cat-ai     { background: rgba(126,181,232,0.1); color: var(--blue);   }
+    .cat-photo  { background: rgba(126,200,160,0.1); color: var(--green);  }
+    .cat-edu    { background: rgba(224,122,95,0.1);  color: var(--coral);  }
+    .cat-code   { background: rgba(180,150,220,0.1); color: #b496dc;       }
+
+    .article-date, .article-read {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; color: var(--muted);
+    }
+
+    .article-header h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600; line-height: 1.1; color: #fff;
+      margin-bottom: 1rem;
+    }
+    .article-header h1 em { font-style: italic; color: var(--accent); }
+
+    .article-intro {
+      font-size: 1.1rem; color: var(--muted);
+      line-height: 1.8; max-width: 600px;
+      border-left: 2px solid rgba(232,197,71,0.3);
+      padding-left: 1.25rem; margin-bottom: 1.5rem;
+    }
+
+    .article-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+
+    /* ── Hero image (optional) ── */
+    .article-hero {
+      width: 100%; aspect-ratio: 16/7;
+      border-radius: 12px; overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 3rem;
+      background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .article-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .article-hero-placeholder {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem; color: var(--muted);
+      letter-spacing: 0.15em; text-transform: uppercase;
+    }
+
+    /* ── Article body typography ── */
+    .article-body { max-width: 680px; }
+
+    .article-body h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.6rem; font-weight: 600; color: #fff;
+      margin: 2.5rem 0 1rem; line-height: 1.2;
+      scroll-margin-top: 6rem; /* offset for sticky nav */
+    }
+    .article-body h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.15rem; font-weight: 600; color: var(--text);
+      margin: 2rem 0 0.75rem; line-height: 1.3;
+      scroll-margin-top: 6rem;
+    }
+    .article-body p {
+      font-size: 1rem; color: var(--muted);
+      line-height: 1.85; margin-bottom: 1.25rem;
+    }
+    .article-body p strong { color: var(--text); font-weight: 500; }
+    .article-body p em { color: var(--text); font-style: italic; }
+
+    .article-body a { color: var(--accent); text-decoration: underline; text-decoration-color: rgba(232,197,71,0.35); transition: text-decoration-color 0.2s; }
+    .article-body a:hover { text-decoration-color: var(--accent); }
+    .article-body a:visited { color: var(--accent); }
+
+    /* Divider between sections */
+    .article-body hr {
+      border: none; border-top: 1px solid var(--border);
+      margin: 2.5rem 0;
+    }
+
+    /* Code blocks */
+    .article-body pre {
+      background: rgba(0,0,0,0.4);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px; padding: 1.25rem 1.5rem;
+      overflow-x: auto; margin: 1.5rem 0;
+    }
+    .article-body code {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.82rem; color: var(--accent);
+      line-height: 1.7;
+    }
+    /* Inline code */
+    .article-body p code {
+      background: rgba(232,197,71,0.08);
+      border: 1px solid rgba(232,197,71,0.15);
+      border-radius: 4px; padding: 0.1rem 0.4rem;
+      font-size: 0.82rem;
+    }
+
+    /* Blockquote / callout */
+    .article-body blockquote {
+      border-left: 2px solid var(--accent);
+      margin: 1.5rem 0; padding: 0.75rem 1.25rem;
+      background: rgba(232,197,71,0.04);
+      border-radius: 0 8px 8px 0;
+    }
+    .article-body blockquote p { color: var(--text); margin-bottom: 0; }
+
+    /* Ordered and unordered lists */
+    .article-body ul, .article-body ol {
+      padding-left: 1.5rem; margin-bottom: 1.25rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .article-body li { font-size: 1rem; color: var(--muted); line-height: 1.75; }
+    .article-body li strong { color: var(--text); font-weight: 500; }
+    .article-body ul li::marker { color: var(--accent); }
+    .article-body ol li::marker { color: var(--accent); font-family: 'Space Mono', monospace; font-size: 0.85rem; }
+
+    /* Tip / note callout box */
+    .callout {
+      background: var(--surface);
+      border: 1px solid rgba(126,181,232,0.25);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 10px 10px 0;
+      padding: 1rem 1.25rem; margin: 1.5rem 0;
+    }
+    .callout-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 0.4rem; display: block;
+    }
+    .callout p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0; line-height: 1.7; }
+
+    /* Image inside article body */
+    .article-body figure {
+      margin: 2rem 0;
+    }
+    .article-body figure img {
+      width: 100%; border-radius: 8px;
+      border: 1px solid var(--border); display: block;
+    }
+    .article-body figcaption {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 0.08em; margin-top: 0.6rem;
+      text-align: center;
+    }
+
+    /* ── Article footer ── */
+    .article-footer {
+      margin-top: 4rem; padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .article-footer-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .back-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.08em;
+      transition: color 0.2s; display: flex; align-items: center; gap: 0.4rem;
+    }
+    .back-link:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<div id="cursor"><div class="cursor-dot"></div></div>
+<div style="position:fixed;top:0;left:0;pointer-events:none;z-index:9998;" id="cursor-ring-wrap">
+  <div class="cursor-ring" style="position:relative;"></div>
+</div>
+<div class="starfield" id="stars"></div>
+
+<nav>
+  <a href="../../index.html" class="nav-logo">amalia<em>42</em>.com</a>
+  <ul class="nav-links">
+    <li><a href="../vibe.html">Vibe Lab</a></li>
+    <li><a href="../photography.html">Photography</a></li>
+    <li><a href="../tutorials.html" class="active">Tutorials</a></li>
+    <li><a href="../about.html">Lab Notes</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     PAGE HEADER
+     Update: page-tag, h1, and the intro paragraph
+═══════════════════════════════════════════ -->
+<header class="page-header">
+  <span class="page-tag">Tutorial</span>
+  <h1>Crafting AI <em>prompts</em><br>made easy.</h1>
+  <p>Learn how to craft AI prompts that get the best results from your AI.</p>
+</header>
+
+<div class="page-content">
+  <div class="article-layout">
+
+    <!-- ═══════════════════════════════════════════
+         TABLE OF CONTENTS (left sidebar)
+         Add one <li> per <h2> section in your article.
+         The href must match the id on the matching <h2>.
+         Example: href="#setup" matches <h2 id="setup">
+    ═══════════════════════════════════════════ -->
+    <aside class="toc">
+      <span class="toc-label">In this guide</span>
+      <ul class="toc-list" id="tocList">
+        <li><a href="#intro">Introduction</a></li>
+        <li><a href="#section-one">A 4 Step Process</a></li>
+        <li><a href="#section-two">Breaking it Down</a></li>
+        <!-- add a sub-item like this: -->
+       
+        <li><a href="#section-three">General Tips</a></li>
+        <li><a href="#wrap-up">Wrap-up</a></li>
+      </ul>
+      <div class="toc-divider"></div>
+      <a href="../tutorials.html" class="toc-back">← All tutorials</a>
+    </aside>
+
+    <!-- ═══════════════════════════════════════════
+         ARTICLE CONTENT (right column)
+    ═══════════════════════════════════════════ -->
+    <article>
+
+      <!-- Article header -->
+      <div class="article-header">
+        <div class="article-meta-row">
+          <!-- Choose one category class: cat-web | cat-ai | cat-photo | cat-edu | cat-code -->
+          <span class="article-cat cat-web">AI Prompts</span>
+          <span class="article-date">April 2025</span>  <!-- ← update date -->
+          <span class="article-read">5 min read</span>  <!-- ← update read time -->
+        </div>
+
+        <!-- ═══════════════════════════════════════════
+             STEP 2: Update the article title
+        ═══════════════════════════════════════════ -->
+        <h1>Crafting AI prompts for the best results</h1>
+
+        <!-- ═══════════════════════════════════════════
+             STEP 3: Write your intro / hook paragraph
+             This appears as a pull-quote style intro.
+        ═══════════════════════════════════════════ -->
+        <p class="article-intro">
+          Crafting AI prompts is a skill that can be learned with practice. This guide will show you how to craft prompts that get the best results from your AI.
+        </p>
+
+        <!-- Tags — update to match your tutorial -->
+        <div class="article-tags">
+          <span class="tag">AI Prompts</span>
+
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           HERO IMAGE (optional)
+           Replace the placeholder div with a real image,
+           or delete the entire .article-hero block if
+           you don't want a hero image.
+
+           To add an image:
+             <div class="article-hero">
+               <img src="../../images/tutorials/your-image.jpg" alt="description">
+             </div>
+      ═══════════════════════════════════════════ -->
+      <div class="article-hero">
+        <IMG SRC="images/prompttips.png" width="100%" height="100%" alt="AI Prompts">
+       
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           ARTICLE BODY
+           Write your content below.
+           Available elements:
+             <h2 id="...">  — section heading (add matching id for TOC)
+             <h3>           — sub-section heading
+             <p>            — paragraph
+             <ul> / <ol>    — bullet or numbered list
+             <blockquote>   — highlighted quote
+             <pre><code>    — code block
+             <p><code>      — inline code
+             <figure>       — image with caption
+             <hr>           — horizontal divider
+             .callout div   — tip / note box (see example below)
+      ═══════════════════════════════════════════ -->
+      <div class="article-body">
+
+        <!-- ── Introduction ── -->
+        <h2 id="intro">Introduction</h2>
+
+        <p>
+          Crafting AI prompts reminds me of the early days of web searches. You could type in a query in any search engine and get a list of results that you would then need to sift through to find the information you were looking for. If you wanted a more precise answer or if you didn't have the time to waste, you could use operators to refine your search and get more specific results. The same thing happens when you use AI prompts. You can type in a query and get a list of results that you would then need to sift through to find the information you were looking for, or you can refine your prompt in order to get more specific results to start with.
+        </p>
+
+
+        <hr>
+
+        <!-- ── Section One ── -->
+        <!-- The id here must match the href in your TOC above -->
+        <h2 id="section-one">A 4 Step Process</h2>
+
+        <p>
+          Writing a prompt can be taken down to 4 steps:
+          <OL>
+            <LI>Be Specific</LI>
+            <LI>Give it a Role</LI>
+            <LI>Provide Context and Give Details</LI>
+            <LI>Add constraints and define the outcome</LI>
+          </OL>
+        </p>
+
+       
+
+        <hr>
+
+        <!-- ── Section Two ── -->
+        <h2 id="section-two">Breaking it Down</h2>
+
+        <p><strong>1. Be Specific. </strong>Start with a clear and concise prompt.</p>
+
+        <div class="callout">
+          <span class="callout-label">Example</span>
+          <p>Create a risk assessment for a class trip to the theatre.</p>
+        </div>
+
+        <p><strong>2. Give it a Role. </strong>Tell the AI what role it should play in the conversation.</p>
+
+        <div class="callout">
+          <span class="callout-label">Example</span>
+          <p><code>You are a theater teacher who teaches a grade 9 class.</code> Create a risk assessment for a class trip to the theatre.</p>
+        </div>
+
+        <p><strong>3. Provide Details and Context. </strong>Tell the AI what role it should play in the conversation.</p>
+
+        <div class="callout">
+          <span class="callout-label">Example</span>
+          <p>You are a theater teacher who teaches a grade 9 class. Create a risk assessment for a class trip to the theatre. <code>The risk assessment should include information on students getting lost, issues with transportation and if a student gets sick while at the theatre. </code></p>
+        </div>
+
+        <p><strong>4. Add constraints and define the outcome. </strong>Tell the AI what role it should play in the conversation.</p>
+
+        <div class="callout">
+          <span class="callout-label">Example</span>
+          <p>You are a theater teacher who teaches a grade 9 class. Create a risk assessment for a class trip to the theatre. The risk assessment should include information on students getting lost, issues with transportation and if a student gets sick while at the theatre. <code>The assessment should not be longer than 300 words. 
+            The tone should be crisp and geared towards parents.</code>
+            </p>
+        </div>
+
+   
+
+        <hr>
+
+        <!-- ── Section Three ── -->
+        <h2 id="section-three">General Tips</h2>
+
+        <p>These are some general guidelines to work with when crafting your prompts:</p>
+
+        <!-- Numbered list example -->
+        <ol>
+          <li>Ask the LLM to give you feedbacon on your work. Have it identify the strengths and weaknesses of your work and provide suggestions for improvement.</li>
+          <li>Go back to various LLMS. They are constantly updating and offering new features and capabilities.</li>
+          <li>Start your prompts with one LLM and then go back to the other LLMS to see if they can do better.</li>
+          <LI>When vibe coding, ask the LLM to construct the prompt for you (based on what you are trying to achieve) so that a particular Vibe Coding app understands what you are asking for.</LI>
+        </ol>
+
+        <!-- Blockquote example -->
+        <blockquote>
+          <p>If you constantly ask the same LLM to do the same thing, it will eventually get bored and start to produce less than stellar results.</p>
+        </blockquote>
+
+        <hr>
+
+        <!-- ── Wrap-up ── -->
+        <h2 id="wrap-up">Wrap-up</h2>
+
+        <p>
+          Experiment with different prompts and see what works best for you. There really is no right or wrong way to craft a prompt, but with practice you will get better at it.
+        </p>
+
+     
+
+      </div><!-- /article-body -->
+
+      <!-- Article footer -->
+      <div class="article-footer">
+        <div class="article-footer-tags">
+          <!-- Repeat your tags here -->
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <a href="../tutorials.html" class="back-link">← Back to all tutorials</a>
+      </div>
+
+    </article>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 <a href="../../index.html">amalia42.com</a> — mostly harmless</p>
+  <p>← <a href="../tutorials.html">Back to tutorials</a></p>
+</footer>
+
+<script src="../../js/main.js"></script>
+<script>
+  // Cursor ring
+  const ringWrap = document.getElementById('cursor-ring-wrap');
+  let rx=0,ry=0,mx=0,my=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringWrap.style.transform=`translate(${rx-16}px,${ry-16}px)`;requestAnimationFrame(loop);})();
+
+  // Highlight active TOC item as reader scrolls
+  const headings = document.querySelectorAll('.article-body h2, .article-body h3');
+  const tocLinks = document.querySelectorAll('.toc-list a');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        tocLinks.forEach(link => link.classList.remove('active'));
+        const active = document.querySelector(`.toc-list a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  headings.forEach(h => { if (h.id) observer.observe(h); });
+</script>
+</body>
+</html>

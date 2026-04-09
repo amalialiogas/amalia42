@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photography — amalia42</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ── Filter ── */
+    .filter-bar { display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:3rem; }
+
+    /* ── Uniform grid ── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+    }
+
+    .photo-item {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      cursor: none;
+      background: var(--surface);
+    }
+
+    /* Placeholder colour fills (replace with real images) */
+    .photo-item .ph {
+      position: absolute; inset: 0;
+      transition: transform 0.5s cubic-bezier(.25,.46,.45,.94);
+    }
+    .photo-item:hover .ph { transform: scale(1.06); }
+
+    .photo-overlay {
+      position: absolute; inset: 0;
+      background: rgba(8,13,26,0);
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.25rem;
+      transition: background 0.3s;
+    }
+    .photo-item:hover .photo-overlay { background: rgba(8,13,26,0.72); }
+
+    .photo-caption {
+      opacity: 0; transform: translateY(8px);
+      transition: all 0.3s 0.05s;
+    }
+    .photo-item:hover .photo-caption { opacity:1; transform:translateY(0); }
+
+    .photo-caption h4 {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem; font-weight: 600; color: #fff;
+      margin-bottom: 0.25rem;
+    }
+    .photo-caption p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; color: rgba(255,255,255,0.55);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* Featured / wide item */
+    .photo-item.wide {
+      grid-column: span 2;
+      aspect-ratio: 2/1;
+    }
+    .photo-item.tall {
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 500;
+      background: rgba(4,7,15,0.95);
+      display: none; align-items: center; justify-content: center;
+      backdrop-filter: blur(8px);
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-inner {
+      max-width: 900px; width: 90%;
+      position: relative;
+    }
+    .lightbox-img {
+      width: 100%; border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+    .lightbox-close {
+      position: fixed; top: 1.25rem; right: 1.75rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem; color: var(--text);
+      cursor: pointer; letter-spacing: 0.1em;
+      background: rgba(8,13,26,0.9);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.5rem 1rem; border-radius: 6px;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+      z-index: 601;
+    }
+    .lightbox-close:hover { color: var(--accent); border-color: var(--accent); }
+    body.lightbox-open { overflow: hidden; }
+    .lightbox-caption {
+      margin-top: 1rem; text-align: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem; color: var(--muted); letter-spacing: 0.1em;
+    }
+
+    /* Upload hint */
+    .upload-hint {
+      margin-top: 3rem;
+      border: 1px dashed rgba(255,255,255,0.12);
+      border-radius: 12px; padding: 2rem;
+      text-align: center;
+    }
+    .upload-hint p {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem; color: var(--muted);
+      letter-spacing: 0.08em; line-height: 1.8;
+    }
+    .upload-hint strong { color: var(--accent); }
+
+    /* ── Colour palette for placeholders ── */
+    .c1 { background: linear-gradient(135deg,#1a2a3a,#0d1f30); }
+    .c2 { background: linear-gradient(135deg,#1a1410,#2e1f0e); }
+    .c3 { background: linear-gradient(135deg,#0e1a10,#162412); }
+    .c4 { background: linear-gradient(135deg,#1e1020,#120a18); }
+    .c5 { background: linear-gradient(135deg,#1e1a08,#2a2210); }
+    .c6 { background: linear-gradient(135deg,#08101e,#10182e); }
+    .c7 { background: linear-gradient(135deg,#1a0e0e,#2a1010); }
+    .c8 { background: linear-gradient(135deg,#0a1a18,#102420); }
+    .c9 { background: linear-gradient(135deg,#1a1620,#241e2c); }
+
+    /* grid lines decorative overlay */
+    .photo-item::after {
+      content: '';
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity 0.3s;
+      box-shadow: inset 0 0 0 2px rgba(232,197,71,0.3);
+    }
+    .photo-item:hover::after { opacity: 1; }
+  </style>
+</head>
+<body>
+
+<div id="cursor"><div class="cursor-dot"></div></div>
+<div style="position:fixed;top:0;left:0;pointer-events:none;z-index:9998;" id="cursor-ring-wrap">
+  <div class="cursor-ring" style="position:relative;"></div>
+</div>
+<div class="starfield" id="stars"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">amalia<em>42</em>.com</a>
+  <ul class="nav-links">
+    <li><a href="vibe.html">Vibe Lab</a></li>
+    <li><a href="photography.html" class="active">Photography</a></li>
+    <li><a href="tutorials.html">Tutorials</a></li>
+    <li><a href="about.html">Lab Notes</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <span class="page-tag">02 / Photography</span>
+  <h1>Moments caught<br><em>mid-flight.</em></h1>
+  <p>Cities, light, strangers, and the occasional galaxy. Shot on whatever was in my bag.</p>
+</header>
+
+<div class="page-content">
+  <div class="filter-bar">
+    <span class="tag active" data-filter="all">All</span>
+    <span class="tag" data-filter="travel">Travel</span>
+    <span class="tag" data-filter="nature">Nature</span>
+    <span class="tag" data-filter="street">Street</span>
+    <span class="tag" data-filter="event">Event</span>
+    <span class="tag" data-filter="abstract">Abstract</span>
+  </div>
+
+  <!-- Photo grid — replace .ph divs with <img> tags when you have real photos -->
+  <div class="photo-grid" id="photoGrid">
+
+<!-- Row 1 -->
+
+ <div class="photo-item wide" data-cat="street" data-reveal>
+
+      <img src="../images/photos/om.jpg" alt="Old Montreal" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+      <div class="photo-overlay"><div class="photo-caption"><h4>Old Montreal</h4><p>Photo Walk · 2018</p></div></div>
+    </div>
+
+
+<!-- Row 2 -->
+
+    <div class="photo-item" data-cat="travel" data-reveal>
+       <img src="../images/photos/hofburg.jpg" alt="Austria" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Hofburg, Austria</h4><p>Travel · 2018</p></div></div>
+    </div>
+
+
+
+    <div class="photo-item" data-cat="travel" data-reveal>
+       <img src="../images/photos/bird.jpg" alt="Vienna" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Vienna, Austria</h4><p>Travel · 2018</p></div></div>
+    </div>
+
+
+
+    <div class="photo-item" data-cat="nature" data-reveal>
+       <img src="../images/photos/flower.jpg" alt="Magnolia" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Magnolia</h4><p>Nature · 2020</p></div></div>
+    </div>
+
+
+
+    <div class="photo-item" data-cat="street" data-reveal>
+       <img src="../images/photos/gp2009.jpg" alt="Pride" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Gay Pride Parade</h4><p>Street Photography · 2009</p></div></div>
+    </div>
+
+
+<!-- Row 3 -->
+
+        <div class="photo-item" data-cat="street" data-reveal>
+       <img src="../images/photos/sf2008.jpg" alt="Pride" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> San Francisco</h4><p>Street Photography · 2008</p></div></div>
+    </div>
+
+
+
+
+        <div class="photo-item" data-cat="event" data-reveal>
+       <img src="../images/photos/radioradio2012.jpg" alt="Radio Radio" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Radio Radio</h4><p>Performance · 2012</p></div></div>
+    </div>
+
+
+        <div class="photo-item" data-cat="street" data-reveal>
+       <img src="../images/photos/sthenri2016.jpg" alt="St. Henri" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> St.Henri</h4><p>Street Photography · 2016</p></div></div>
+    </div>
+
+
+<!-- Row 4 -->
+
+        <div class="photo-item" data-cat="street" data-reveal>
+       <img src="../images/photos/gp2012.jpg" alt="Pride" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Gay Pride Parade</h4><p>Street Photography · 2012</p></div></div>
+    </div>
+
+
+
+
+
+    <div class="photo-item wide" data-cat="urban" data-reveal>
+
+      <img src="../images/photos/n.jpg" alt="Nicaragua" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+      <div class="photo-overlay"><div class="photo-caption"><h4>Nicaragua</h4><p>Travel · 2016</p></div></div>
+    </div>
+
+
+
+<!-- Row 5 -->
+
+    <div class="photo-item" data-cat="travel" data-reveal>
+       <img src="../images/photos/rosquillas.jpg" alt="Nicaragua" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Making Rosquillas</h4><p>Travel · 2011</p></div></div>
+    </div>
+
+
+
+
+  <div class="photo-item" data-cat="travel" data-reveal>
+       <img src="../images/photos/paris.jpg" alt="Paris" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Paris</h4><p>France</p></div></div>
+    </div>
+
+
+
+ <div class="photo-item" data-cat="nature" data-reveal>
+       <img src="../images/photos/winter.jpg" alt="Winter" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Winter</h4><p>Nature · 2017</p></div></div>
+    </div>
+
+
+<!-- Row 6 -->
+
+
+ <div class="photo-item" data-cat="performance" data-reveal>
+       <img src="../images/photos/dawson2006.jpg" alt="Retirement" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Dawson College</h4><p>Retirement</p></div></div>
+    </div>
+
+
+
+ <div class="photo-item" data-cat="nature" data-reveal>
+       <img src="../images/photos/moon.jpg" alt="Moon" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Moon</h4><p>Nature · 2007</p></div></div>
+    </div>
+
+
+
+ <div class="photo-item" data-cat="nature" data-reveal>
+       <img src="../images/photos/flower22012.jpg" alt="Flower" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Flower</h4><p>Nature · 2012</p></div></div>
+    </div>
+
+
+
+<!-- Row 7 -->
+
+ <div class="photo-item wide" data-cat="abstract" data-reveal>
+
+      <img src="../images/photos/sleep.jpg" alt="Sleep" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+      <div class="photo-overlay"><div class="photo-caption"><h4>Sleep</h4><p>Abstract · 2009</p></div></div>
+    </div>
+
+
+
+
+    <div class="photo-item" data-cat="street" data-reveal>
+       <img src="../images/photos/stcatherine.jpg" alt="Ste. Catherine" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Ste Catherine Street, Montreal</h4><p>Street Photography · 2008</p></div></div>
+    </div>
+
+
+<!-- Row 8 -->
+
+<div class="photo-item" data-cat="event" data-reveal>
+       <img src="../images/photos/fire.jpg" alt="Fireworks" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Fireworks</h4><p>Montreal · 2006</p></div></div>
+    </div>
+
+
+
+ <div class="photo-item" data-cat="travel" data-reveal>
+       <img src="../images/photos/poland.jpg" alt="Poland" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Poland</h4><p> Auschwitz </p></div></div>
+    </div>
+
+
+
+ <div class="photo-item" data-cat="travel" data-reveal>
+       <img src="../images/photos/hands.jpg" alt="Hands" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Master Potter</h4><p>Nicaragua</p></div></div>
+    </div>
+
+
+<!-- Row 9 -->
+
+
+<div class="photo-item" data-cat="event" data-reveal>
+       <img src="../images/photos/scotthammell2010.jpg" alt="Scott Hammell" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Scott Hammell</h4><p>Me to We · 2010</p></div></div>
+    </div>
+
+
+
+ <div class="photo-item" data-cat="nature" data-reveal>
+       <img src="../images/photos/sky.jpg" alt="Sky" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Sky</h4><p>Montreal · 2007</p></div></div>
+    </div>
+
+
+
+ <div class="photo-item" data-cat="travel" data-reveal>
+       <img src="../images/photos/campcanac2008.jpg" alt="Camp" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Camp Camac</h4><p> Travel · 2008 </p></div></div>
+    </div>
+
+
+
+<!-- Row 10 -->
+
+    <div class="photo-item" data-cat="travel" data-reveal>
+       <img src="../images/photos/rome03.jpg" alt="Rome" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+
+      <div class="photo-overlay"><div class="photo-caption"><h4> Travel</h4><p>Rome · 2003</p></div></div>
+    </div>
+
+
+<div class="photo-item wide" data-cat="nature" data-reveal>
+
+      <img src="../images/photos/v18.jpg" alt="Volcano" 
+       style="width:100%; height:100%; object-fit:cover;">
+
+      <div class="photo-overlay"><div class="photo-caption"><h4>Volcano</h4><p>Nicaragua · 2018</p></div></div>
+    </div>
+
+
+<!-- Row 11 -->
+
+
+
+
+
+  </div>
+
+  <div class="upload-hint">
+ 
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <button class="lightbox-close" id="lightboxClose">[ close × ]</button>
+    <div id="lightboxContent"></div>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 <a href="../index.html">amalia42.com</a> — mostly harmless</p>
+  <p>← <a href="../index.html">Back to home</a></p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+  const ringWrap = document.getElementById('cursor-ring-wrap');
+  let rx=0,ry=0,mx=0,my=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringWrap.style.transform=`translate(${rx-16}px,${ry-16}px)`;requestAnimationFrame(loop);})();
+
+  // Filter
+  document.querySelectorAll('.filter-bar .tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      document.querySelectorAll('.filter-bar .tag').forEach(t=>t.classList.remove('active'));
+      tag.classList.add('active');
+      const f = tag.dataset.filter;
+      document.querySelectorAll('.photo-item').forEach(item => {
+        item.style.display = (f==='all'||item.dataset.cat===f) ? '' : 'none';
+      });
+    });
+  });
+
+  // Lightbox — works with both real <img> tags and placeholder .ph divs
+  const lb = document.getElementById('lightbox');
+  const lbClose = document.getElementById('lightboxClose');
+  const lbContent = document.getElementById('lightboxContent');
+  const lbCaption = document.getElementById('lightboxCaption');
+
+  function openLightbox(item) {
+    lbContent.innerHTML = '';
+
+    const img = item.querySelector('img');
+    if (img) {
+      // Real photo — show it full size
+      const clone = document.createElement('img');
+      clone.src = img.src;
+      clone.alt = img.alt;
+      clone.style.cssText = 'width:100%;border-radius:8px;border:1px solid rgba(255,255,255,0.08);display:block;max-height:80vh;object-fit:contain;';
+      lbContent.appendChild(clone);
+    } else {
+      // Placeholder tile — clone the coloured div so something appears
+      const ph = item.querySelector('.ph');
+      if (ph) {
+        const clone = ph.cloneNode(true);
+        clone.style.cssText = clone.style.cssText + 'width:100%;height:420px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;';
+        const hint = document.createElement('p');
+        hint.style.cssText = 'font-family:Space Mono,monospace;font-size:0.72rem;color:rgba(255,255,255,0.25);letter-spacing:0.15em;text-align:center;';
+        hint.textContent = 'Replace this tile with a real photo\nto see it here';
+        clone.innerHTML = '';
+        clone.appendChild(hint);
+        lbContent.appendChild(clone);
+      }
+    }
+
+    // Caption
+    const caption = item.querySelector('.photo-caption');
+    if (caption) {
+      const title = caption.querySelector('h4');
+      const meta  = caption.querySelector('p');
+      lbCaption.textContent = (title ? title.textContent : '') + (meta ? '  ·  ' + meta.textContent : '');
+    }
+
+    lb.classList.add('open');
+    document.body.classList.add('lightbox-open');
+  }
+
+  document.querySelectorAll('.photo-item').forEach(item => {
+    item.addEventListener('click', () => openLightbox(item));
+  });
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.classList.remove('lightbox-open');
+    lbContent.innerHTML = '';
+  }
+  lbClose.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+</script>
+</body>
+</html>

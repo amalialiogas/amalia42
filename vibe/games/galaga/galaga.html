@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galaga Classic</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <header class="hud" aria-live="polite">
+        <div class="hud-item">
+          <span class="hud-label">Score</span>
+          <strong id="score">000000</strong>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">Lives</span>
+          <strong id="lives">3</strong>
+        </div>
+        <div class="hud-item">
+          <span class="hud-label">Level</span>
+          <strong id="level">1</strong>
+        </div>
+      </header>
+
+      <section class="canvas-wrap" aria-label="Galaga game board">
+        <canvas id="game" width="480" height="640"></canvas>
+
+        <div id="overlay" class="overlay visible">
+          <h1 id="overlayTitle">Galaga</h1>
+          <p id="overlayText">Press Enter or tap Start to begin.</p>
+          <button id="startBtn" type="button">Start Game</button>
+        </div>
+      </section>
+
+      <section class="mobile-controls" aria-label="Touch controls">
+        <button class="control-btn" data-control="left" aria-label="Move left">◀</button>
+        <button class="control-btn fire" data-control="fire" aria-label="Fire">FIRE</button>
+        <button class="control-btn" data-control="right" aria-label="Move right">▶</button>
+      </section>
+
+      <p class="hint">Move: Arrow keys or A/D. Fire: Space, J, or K. Sound: M to mute/unmute.</p>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

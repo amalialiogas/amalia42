@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Breakout</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <div class="title">Breakout</div>
+      <header class="hud">
+        <div class="hud__group">
+          <div class="hud__label">Score</div>
+          <div id="score" class="hud__value">0</div>
+        </div>
+        <div class="hud__group">
+          <div class="hud__label">Lives</div>
+          <div id="lives" class="hud__value">3</div>
+        </div>
+        <div class="hud__group">
+          <div class="hud__label">Level</div>
+          <div id="level" class="hud__value">1</div>
+        </div>
+      </header>
+
+      <main class="stage">
+        <canvas id="game" width="900" height="600" aria-label="Breakout game"></canvas>
+        <div class="help">
+          <div>Move: ←/→ or A/D</div>
+          <div>Launch: Space</div>
+          <div>Pause: P</div>
+          <div>Restart: R</div>
+        </div>
+      </main>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>

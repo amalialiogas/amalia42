@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frogger Classic</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="game-shell">
+      <h1>Frogger Classic</h1>
+
+      <section class="hud" aria-label="Game status">
+        <p>Score: <span id="score">0</span></p>
+        <p>Lives: <span id="lives">3</span></p>
+        <p>Level: <span id="level">1</span></p>
+      </section>
+
+      <div class="timer-track" aria-hidden="true">
+        <div id="timerBar" class="timer-bar"></div>
+      </div>
+
+      <canvas
+        id="game"
+        width="624"
+        height="624"
+        aria-label="Frogger game board"
+        role="img"
+      ></canvas>
+
+      <p id="message" class="message">Reach all five home pads to clear the level.</p>
+
+      <section class="actions" aria-label="Game controls">
+        <button id="muteBtn" type="button">Sound: On</button>
+        <button id="restartBtn" type="button">Restart</button>
+      </section>
+
+      <section class="touch-controls" aria-label="Touch controls">
+        <button type="button" data-dir="up" aria-label="Move up">▲</button>
+        <div class="touch-row">
+          <button type="button" data-dir="left" aria-label="Move left">◀</button>
+          <button type="button" data-dir="down" aria-label="Move down">▼</button>
+          <button type="button" data-dir="right" aria-label="Move right">▶</button>
+        </div>
+      </section>
+
+      <p class="help">
+        Keyboard: Arrow keys or WASD. Press Enter to restart after game over.
+      </p>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

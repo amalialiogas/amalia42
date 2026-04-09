@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amalia's Arcade - Game Collection V2</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: #000;
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* CRT Screen effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 255, 0, 0.03),
+                    rgba(0, 255, 0, 0.03) 1px,
+                    transparent 1px,
+                    transparent 2px
+                );
+            pointer-events: none;
+            z-index: 1000;
+            animation: scanline 8s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+        
+        /* Purple/cyan gradient background */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #1a0033 0%, #000 100%);
+            z-index: -2;
+        }
+        
+        /* Animated stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        /* Header with different style */
+        header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, rgba(138, 43, 226, 0.2) 0%, transparent 100%);
+            border: 2px solid #8a2be2;
+            border-radius: 20px;
+            box-shadow: 
+                0 0 30px rgba(138, 43, 226, 0.5),
+                inset 0 0 30px rgba(138, 43, 226, 0.1);
+        }
+        
+        h1 {
+            font-size: 4em;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            margin-bottom: 20px;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #00ffff;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+        
+        .credit-counter {
+            margin-top: 20px;
+            font-size: 1em;
+            color: #ffff00;
+            letter-spacing: 2px;
+        }
+        
+        /* Games grid - different layout */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .game-card {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.3), rgba(0, 191, 255, 0.3));
+            border: 3px solid;
+            border-image: linear-gradient(45deg, #ff00ff, #00ffff) 1;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            clip-path: polygon(
+                0 10px, 10px 0, 
+                calc(100% - 10px) 0, 100% 10px,
+                100% calc(100% - 10px), calc(100% - 10px) 100%,
+                10px 100%, 0 calc(100% - 10px)
+            );
+        }
+        
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .game-card:hover::before {
+            left: 100%;
+        }
+        
+        .game-card:hover {
+            transform: scale(1.08);
+            box-shadow: 
+                0 0 50px rgba(138, 43, 226, 0.8),
+                0 0 100px rgba(0, 191, 255, 0.6);
+            border-image: linear-gradient(45deg, #ffff00, #ff00ff, #00ffff) 1;
+        }
+        
+        .game-number {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 3em;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .game-icon {
+            font-size: 4em;
+            text-align: center;
+            margin-bottom: 25px;
+            filter: drop-shadow(0 0 20px currentColor);
+        }
+        
+        .game-title {
+            font-size: 1.5em;
+            color: #00ffff;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        .game-description {
+            font-size: 0.85em;
+            line-height: 1.8;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .play-button {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #8a2be2, #00bfff);
+            border: 2px solid #00ffff;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9em;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 
+                0 0 20px rgba(0, 191, 255, 0.5);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .play-button::before {
+            content: '▶';
+            position: absolute;
+            left: 20px;
+            transition: left 0.3s ease;
+        }
+        
+        .play-button:hover {
+            background: linear-gradient(135deg, #00bfff, #8a2be2);
+            box-shadow: 
+                0 0 40px rgba(0, 191, 255, 0.8),
+                0 0 60px rgba(138, 43, 226, 0.6);
+            transform: translateY(-3px);
+            border-color: #ff00ff;
+        }
+        
+        .play-button:hover::before {
+            left: calc(50% - 10px);
+        }
+        
+        /* Arcade cabinet frame */
+        .arcade-frame {
+            border: 5px solid #8a2be2;
+            border-radius: 30px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 
+                inset 0 0 50px rgba(138, 43, 226, 0.3),
+                0 0 50px rgba(138, 43, 226, 0.5);
+        }
+        
+        /* INSERT COIN animation - different style */
+        .coin-slot {
+            text-align: center;
+            margin: 60px 0 40px;
+            font-size: 1.2em;
+            color: #ffff00;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            position: relative;
+            padding: 20px;
+        }
+        
+        .coin-slot::before,
+        .coin-slot::after {
+            content: '◆';
+            position: absolute;
+            color: #ff00ff;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .coin-slot::before {
+            left: 20%;
+        }
+        
+        .coin-slot::after {
+            right: 20%;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+        }
+        
+        /* High score style element */
+        .high-score {
+            text-align: center;
+            margin-top: 80px;
+            padding: 30px;
+            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.3), transparent);
+            border-top: 2px solid #8a2be2;
+            border-bottom: 2px solid #8a2be2;
+        }
+        
+        .high-score h3 {
+            font-size: 1.5em;
+            color: #ffff00;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+        }
+        
+        .high-score p {
+            color: #00ffff;
+            font-size: 0.9em;
+            letter-spacing: 2px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 100px;
+            padding: 40px;
+            font-size: 0.8em;
+            color: #8a2be2;
+            border-top: 2px solid #8a2be2;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+                letter-spacing: 4px;
+            }
+            
+            .subtitle {
+                font-size: 0.9em;
+            }
+            
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .game-card {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated stars background -->
+    <div class="stars" id="stars"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Amalia's Arcade</h1>
+            <p class="subtitle">Ultimate Game Collection (As created in Codex)</p>
+            <p class="credit-counter">CREDITS: UNLIMITED</p>
+        </header>
+        
+        <div class="arcade-frame">
+            <div class="coin-slot">◄ INSERT COIN TO CONTINUE ►</div>
+            
+            <div class="games-grid">
+                <!-- Space Invaders Game -->
+                <div class="game-card">
+                    <div class="game-number">01</div>
+                    <div class="game-icon">👾</div>
+                    <h2 class="game-title">Space Invaders</h2>
+                    <p class="game-description">
+                        Defend Earth from alien invaders! Classic arcade action with retro graphics and challenging waves.
+                    </p>
+                    <a href="spaceinvaders/space-invaders.html" class="play-button">Play Now</a>
+                </div>
+                
+                <!-- Breakout Game -->
+                <div class="game-card">
+                    <div class="game-number">02</div>
+                    <div class="game-icon">🧱</div>
+                    <h2 class="game-title">Breakout</h2>
+                    <p class="game-description">
+                        Break through the bricks! Control the paddle and keep the ball in play in this timeless arcade classic.
+                    </p>
+                    <a href="breakout/breakout.html" class="play-button">Play Now</a>
+                </div>
+                
+                <!-- Pong Game -->
+                <div class="game-card">
+                    <div class="game-number">03</div>
+                    <div class="game-icon">▐ ⚪ ▌</div>
+                    <h2 class="game-title">Pong</h2>
+                    <p class="game-description">
+                        The original arcade legend! Battle against the computer in this classic two-paddle tennis showdown.
+                    </p>
+                    <a href="pong/pong.html" class="play-button">Play Now</a>
+                </div>
+                
+                <!-- Snake Game -->
+                <div class="game-card">
+                    <div class="game-number">04</div>
+                    <div class="game-icon">🐍</div>
+                    <h2 class="game-title">Snake</h2>
+                    <p class="game-description">
+                        Eat the food, grow longer, and don't crash! The addictive mobile classic that started it all.
+                    </p>
+                    <a href="snake/snake.html" class="play-button">Play Now</a>
+                </div>
+               
+
+
+                
+                <!-- Checkers Game -->
+                <div class="game-card">
+                    <div class="game-number">06</div>
+                    <div class="game-icon">⚫</div>
+                    <h2 class="game-title">Checkers</h2>
+                    <p class="game-description">
+                        Jump your opponent's pieces and reach the king row in this classic strategy board game!
+                    </p>
+                    <a href="checkers/checkers.html" class="play-button">Play Now</a>
+                </div>
+                
+                <!-- Asteroids Game -->
+                <div class="game-card">
+                    <div class="game-number">07</div>
+                    <div class="game-icon">☄️</div>
+                    <h2 class="game-title">Asteroids</h2>
+                    <p class="game-description">
+                        Pilot your ship through space! Blast asteroids and flying saucers in this vector graphics classic.
+                    </p>
+                    <a href="asteroids/asteroids.html" class="play-button">Play Now</a>
+                </div>
+                
+                <!-- Galaga Game -->
+                <div class="game-card">
+                    <div class="game-number">08</div>
+                    <div class="game-icon">🚀</div>
+                    <h2 class="game-title">Galaga</h2>
+                    <p class="game-description">
+                        Defend against waves of alien attackers! Dodge dive-bombing enemies and rescue captured fighters.
+                    </p>
+                    <a href="galaga/galaga.html" class="play-button">Play Now</a>
+                </div>
+                
+                
+
+
+
+            </div>
+            
+            <div class="high-score">
+                <h3>HIGH SCORE</h3>
+                <p>PLAYER: AMALIA ★ SCORE: 9999999</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>█ AMALIA'S ARCADE © 2025 █</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Generate random stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            starsContainer.appendChild(star);
+        }
+        
+        // Create audio context for retro sound effects
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+        
+        // Initialize audio context on first interaction
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+        
+        // Function to play retro arcade beep sound - slightly different pitch
+        function playArcadeBeep() {
+            if (!audioCtx) return;
+            
+            try {
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                // Different retro beep sound
+                oscillator.type = 'triangle';
+                oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(1500, audioCtx.currentTime + 0.08);
+                
+                gainNode.gain.setValueAtTime(0.25, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.12);
+                
+                oscillator.start(audioCtx.currentTime);
+                oscillator.stop(audioCtx.currentTime + 0.12);
+            } catch (e) {
+                console.log('Audio playback failed:', e);
+            }
+        }
+        
+        // Function to play button click sound
+        function playClickSound() {
+            if (!audioCtx) return;
+            
+            try {
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                
+                oscillator.type = 'square';
+                oscillator.frequency.setValueAtTime(800, audioCtx.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.1);
+                
+                gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+                
+                oscillator.start(audioCtx.currentTime);
+                oscillator.stop(audioCtx.currentTime + 0.15);
+            } catch (e) {
+                console.log('Audio playback failed:', e);
+            }
+        }
+        
+        // Add sound effect on hover
+        const gameCards = document.querySelectorAll('.game-card');
+        
+        gameCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                initAudio();
+                playArcadeBeep();
+                card.style.transition = 'all 0.4s ease';
+            });
+        });
+        
+        // Add click sound to play buttons
+        const playButtons = document.querySelectorAll('.play-button');
+        playButtons.forEach(button => {
+            if (!button.style.cursor || button.style.cursor !== 'not-allowed') {
+                button.addEventListener('click', (e) => {
+                    initAudio();
+                    playClickSound();
+                });
+            }
+        });
+        
+        // Prevent "locked" buttons from being clicked
+        const lockedButtons = document.querySelectorAll('.play-button[style*="cursor: not-allowed"]');
+        lockedButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        });
+        
+        // Initialize audio on any click to unlock it
+        document.addEventListener('click', initAudio, { once: true });
+    </script>
+</body>
+</html>

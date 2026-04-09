@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibe Lab — amalia42</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .filter-bar {
+      display: flex; gap: 0.6rem; flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+
+    .projects { display: flex; flex-direction: column; }
+
+    /*
+      Each project is an <a> tag — the href is where you put the link to launch your project.
+      data-category controls which filter tab shows/hides this row.
+      Valid values: "game", "site", "tool", "edu"
+    */
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden;
+      background: var(--surface);
+      transition: border-color 0.3s, transform 0.3s;
+      text-decoration: none; color: inherit;
+      margin-bottom: 1.25rem;
+    }
+    .project-row:hover {
+      border-color: rgba(255,255,255,0.18);
+      transform: translateY(-3px);
+    }
+
+    .project-info {
+      padding: 2.5rem;
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+
+    .project-meta {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1.25rem; flex-wrap: wrap;
+    }
+    .project-type {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent);
+    }
+    .project-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem; color: var(--muted);
+    }
+
+    .project-row h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.9rem; font-weight: 600; line-height: 1.1;
+      color: #fff; margin-bottom: 0.9rem;
+    }
+    .project-row p {
+      font-size: 0.95rem; color: var(--muted);
+      line-height: 1.7; max-width: 420px;
+    }
+
+    .project-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+    .project-launch {
+      margin-top: 2rem;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .project-launch:hover { gap: 0.8rem; }
+
+    /* The right panel holds your project image or screenshot */
+    .project-preview {
+      position: relative; overflow: hidden;
+      min-height: 280px; background: var(--deep);
+      border-left: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /*
+      When you add a real image, it fills the preview panel like this:
+        <img src="../images/your-screenshot.png" alt="Project name"
+             style="width:100%; height:100%; object-fit:cover; display:block;">
+    */
+
+    /* Browser chrome mockup (used as placeholder until you have a real screenshot) */
+    .preview-screen {
+      width: 90%; height: 85%;
+      border-radius: 8px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .preview-bar {
+      height: 28px; background: rgba(255,255,255,0.05);
+      display: flex; align-items: center; gap: 6px; padding: 0 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #ffbd2e; }
+    .dot-g { background: #28ca41; }
+    .preview-body {
+      padding: 1rem; height: calc(100% - 28px);
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* Placeholder mockup styles — delete these once you add real screenshots */
+    .mock-earth { width:100%;height:100%;background:#000d1a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px; }
+    .mock-globe { width:64px;height:64px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#2a6e4a,#0a2a18);border:2px solid rgba(126,200,160,0.4);position:relative;overflow:hidden; }
+    .mock-globe::after { content:'';position:absolute;width:100%;height:40%;bottom:20%;left:0;background:rgba(126,200,160,0.15);border-radius:50%; }
+    .mock-earth-label { font-family:'Space Mono',monospace;font-size:0.55rem;color:rgba(126,200,160,0.7);letter-spacing:0.15em; }
+    .mock-sleep { width:100%;height:100%;background:#060610;padding:8px;display:flex;flex-direction:column;gap:6px; }
+    .sleep-bar-row { display:flex;align-items:center;gap:6px; }
+    .sleep-label { font-family:'Space Mono',monospace;font-size:0.5rem;color:var(--muted);width:20px; }
+    .sleep-bar { height:6px;border-radius:3px;background:rgba(126,181,232,0.2);flex:1; }
+    .sleep-bar-fill { height:100%;border-radius:3px;background:rgba(126,181,232,0.6); }
+    .mock-game { width:100%;height:100%;background:#0a0a14;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;padding:4px; }
+    .mock-game-cell { border-radius:4px;background:rgba(232,197,71,0.08);border:1px solid rgba(232,197,71,0.15); }
+    .mock-game-cell.lit { background:rgba(232,197,71,0.22); }
+    .mock-inflation { width:100%;height:100%;background:#0a0806;padding:10px;display:flex;align-items:flex-end;gap:5px; }
+    .inf-bar { border-radius:3px 3px 0 0;flex:1;background:rgba(224,122,95,0.5); }
+
+    .status-badge { display:inline-block;font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;padding:0.2rem 0.55rem;border-radius:20px; }
+    .status-live { background:rgba(126,200,160,0.12);color:var(--green);border:1px solid rgba(126,200,160,0.25); }
+    .status-wip  { background:rgba(232,197,71,0.1);color:var(--accent);border:1px solid rgba(232,197,71,0.22); }
+
+    .vibe-marvin {
+      position: fixed; bottom: 2rem; right: 2.5rem; z-index: 50;
+      font-family: 'Space Mono', monospace; font-size: 0.68rem;
+      color: var(--muted); font-style: italic; text-align: right;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"><div class="cursor-dot"></div></div>
+<div style="position:fixed;top:0;left:0;pointer-events:none;z-index:9998;" id="cursor-ring-wrap">
+  <div class="cursor-ring" style="position:relative;"></div>
+</div>
+<div class="starfield" id="stars"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">amalia<em>42</em>.com</a>
+  <ul class="nav-links">
+    <li><a href="vibe.html" class="active">Vibe Lab</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="tutorials.html">Tutorials</a></li>
+    <li><a href="about.html">Lab Notes</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <span class="page-tag">01 / Vibe Lab</span>
+  <h1>Sites & <em>games</em><br>built on vibes.</h1>
+  <p>No spec. No timeline. Just an idea, a browser, and see what happens.</p>
+</header>
+
+<div class="page-content">
+
+  <div class="filter-bar" id="filterBar">
+    <span class="tag active" data-filter="all">All</span>
+    <span class="tag" data-filter="game">Games</span>
+    <span class="tag" data-filter="site">Sites</span>
+    <span class="tag" data-filter="tool">Tools</span>
+    <span class="tag" data-filter="edu">Education</span>
+  </div>
+
+  <div class="projects" id="projects">
+
+    <!-- ============================================================
+         PROJECT CARD — copy this entire block to add a new project
+         ============================================================
+
+         STEP 1: Set the launch link
+           Replace href="#" below with the URL of your project.
+           Example: href="https://myproject.netlify.app"
+
+         STEP 2: Set the category for filtering
+           Change data-category to one of: game | site | tool | edu
+
+         STEP 3: Fill in the project details
+           - project-type: short label shown in gold, e.g. "Site · Edu"
+           - project-date: the year
+           - status-badge: use class "status-live" or "status-wip"
+           - h2: your project headline
+           - p: one or two sentence description
+           - .tag spans: your tech tags, one per span
+
+         STEP 4: Set the launch button label
+           Change the text inside <span class="project-launch">
+
+         STEP 5: Add your image
+           Inside .project-preview, replace everything between the
+           opening and closing div tags with:
+
+             <img src="../images/your-screenshot.png"
+                  alt="Brief description of the image"
+                  style="width:100%; height:100%; object-fit:cover; display:block;">
+
+           Save your image file into the amalia42/images/ folder first.
+           Until you have a screenshot, the placeholder mockup below will show.
+    ============================================================ -->
+
+    <!-- PROJECT 1 -->
+<!-- ↓ LAUNCH LINK: replace href="#" with your project URL -->
+<a class="project-row" href="../vibe/games/arcade.html" target="_blank" data-category="edu" data-reveal>
+  <div class="project-info">
+    <div>
+      <div class="project-meta">
+        <span class="project-type">Site · Edu</span>
+        <span class="project-date">2025</span>
+        <span class="status-badge status-live">Live</span>
+      </div>
+      <h2>Retro Games</h2>
+      <p>A series of retro games created as I was learning to use Codex.</p>
+      <div class="project-tags">
+        <span class="tag">HTML/CSS/JS</span>
+        <span class="tag">Education</span>
+        <span class="tag">Vibe</span>
+      </div>
+    </div>
+    <span class="project-launch">Launch project →</span>
+  </div>
+
+  <div class="project-preview">
+    <img src="vibe/arcade.png"
+         alt="Arcade"
+         style="width:90%; height:90%; object-fit:cover; display:block;">
+  </div>
+
+</a>
+<!-- END PROJECT 1 -->
+
+
+    <!-- PROJECT 2 -->
+    <!-- ↓ LAUNCH LINK: replace href="#" with your project URL -->
+    <a class="project-row" href="https://atlasplanner.lovable.app/" data-category="tool" data-reveal>
+      <div class="project-info">
+        <div>
+          <div class="project-meta">
+            <span class="project-type">Tool · App</span>
+            <span class="project-date">2026</span>
+            <span class="status-badge status-live">Live</span>
+          </div>
+          <h2>Atlas</h2>
+          <p>An expedition planner created in Lovable.</p>
+          <div class="project-tags">
+            <span class="tag">Lovable</span>
+            <span class="tag">Travel</span>
+            <span class="tag">Vibe</span>
+          </div>
+        </div>
+        <span class="project-launch">Launch project →</span>
+      </div>
+
+       <div class="project-preview">
+    <img src="vibe/expedition.png"
+         alt="Arcade"
+         style="width:90%; height:90%; object-fit:cover; display:block;">
+  </div>
+    </a>
+    <!-- END PROJECT 2 -->
+
+
+
+
+
+    <!-- ============================================================
+         TO ADD A NEW PROJECT: copy the block below and paste it
+         above this comment, then fill in your details.
+         ============================================================
+
+    <a class="project-row" href="YOUR-PROJECT-URL-HERE" data-category="site" data-reveal>
+      <div class="project-info">
+        <div>
+          <div class="project-meta">
+            <span class="project-type">Site · TYPE</span>
+            <span class="project-date">2025</span>
+            <span class="status-badge status-live">Live</span>
+          </div>
+          <h2>Your Project Title</h2>
+          <p>Your project description goes here.</p>
+          <div class="project-tags">
+            <span class="tag">Tag 1</span>
+            <span class="tag">Tag 2</span>
+          </div>
+        </div>
+        <span class="project-launch">Launch project →</span>
+      </div>
+      <div class="project-preview">
+        <img src="../images/YOUR-SCREENSHOT.png"
+             alt="Your project name"
+             style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+    </a>
+
+    ============================================================ -->
+
+  </div><!-- /projects -->
+</div>
+
+<footer>
+  <p>© 2025 <a href="../index.html">amalia42.com</a> — mostly harmless</p>
+  <p>← <a href="../index.html">Back to home</a></p>
+</footer>
+
+<div class="vibe-marvin">"I built it. I'm still depressed."<br>— Marvin</div>
+
+<script src="../js/main.js"></script>
+<script>
+  // Cursor ring
+  const ringWrap = document.getElementById('cursor-ring-wrap');
+  let rx=0,ry=0,mx=0,my=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringWrap.style.transform=`translate(${rx-16}px,${ry-16}px)`;requestAnimationFrame(loop);})();
+
+  // Filter tabs
+  const tags = document.querySelectorAll('#filterBar .tag');
+  const rows = document.querySelectorAll('#projects .project-row');
+  tags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      tags.forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+      const f = tag.dataset.filter;
+      rows.forEach(row => {
+        row.style.display = (f === 'all' || row.dataset.category === f) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>

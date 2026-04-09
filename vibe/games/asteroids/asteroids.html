@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asteroids</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="gameCanvas" aria-label="Asteroids game canvas"></canvas>
+
+  <header class="hud" aria-live="polite">
+    <div class="hud-item">
+      <span class="label">Score</span>
+      <span id="score">000000</span>
+    </div>
+    <div class="hud-item">
+      <span class="label">Lives</span>
+      <span id="lives">3</span>
+    </div>
+    <div class="hud-item">
+      <span class="label">Level</span>
+      <span id="level">1</span>
+    </div>
+  </header>
+
+  <section id="overlay" class="overlay show" aria-live="assertive">
+    <h1>ASTEROIDS</h1>
+    <p id="overlayText">Press Enter to start</p>
+    <p class="help">Controls: Left/Right rotate, Up thrust, Space fire, Enter restart</p>
+  </section>
+
+  <script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkers vs Computer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="game-panel">
+        <header class="panel-head">
+          <p class="eyebrow">Browser Game</p>
+          <h1>Checkers: You vs Computer</h1>
+          <p class="subtitle">
+            You play red. Captures are mandatory. Kings move in both directions.
+          </p>
+        </header>
+
+        <div class="hud">
+          <div class="turn-block">
+            <p id="turn-indicator" class="turn-indicator">Preparing...</p>
+            <p id="status" class="status">Preparing game...</p>
+          </div>
+          <div class="controls">
+            <label class="difficulty-wrap">
+              Difficulty
+              <select id="difficulty" aria-label="AI difficulty">
+                <option value="2">Easy</option>
+                <option value="4" selected>Normal</option>
+                <option value="5">Hard</option>
+              </select>
+            </label>
+            <button id="new-game" type="button">New Game</button>
+          </div>
+        </div>
+
+        <div id="board" class="board" aria-label="Checkers board"></div>
+      </section>
+
+      <aside class="info-panel">
+        <section class="card">
+          <h2>Piece Count</h2>
+          <p id="count-red">Red: 12</p>
+          <p id="count-black">Black: 12</p>
+        </section>
+
+        <section class="card">
+          <h2>Legal Moves</h2>
+          <p class="help">
+            Click a red piece on the board, then click one of its listed moves.
+          </p>
+          <div id="move-list" class="move-list"></div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

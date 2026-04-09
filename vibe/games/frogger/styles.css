@@ -1,0 +1,154 @@
+:root {
+  color-scheme: dark;
+  --bg: #0d1117;
+  --panel: #151b23;
+  --panel-edge: #2d3748;
+  --text: #f8fafc;
+  --accent: #91ff6c;
+  --danger: #ff5f56;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(circle at top, #162031 0%, var(--bg) 55%);
+  color: var(--text);
+  font-family: "Trebuchet MS", "Verdana", sans-serif;
+}
+
+.game-shell {
+  width: min(94vw, 700px);
+  margin: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--panel-edge);
+  border-radius: 14px;
+  background: linear-gradient(180deg, #1a2330 0%, var(--panel) 100%);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  text-align: center;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+}
+
+.hud p {
+  margin: 0;
+}
+
+.timer-track {
+  width: 100%;
+  height: 12px;
+  border: 1px solid #243240;
+  border-radius: 999px;
+  background: #0f1722;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.timer-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #ff5a4f 0%, #ffd84f 35%, #7dff74 100%);
+  transition: width 70ms linear;
+}
+
+canvas {
+  width: 100%;
+  max-width: 624px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  border: 2px solid #334155;
+  border-radius: 10px;
+  background: #0f172a;
+  image-rendering: pixelated;
+}
+
+.message {
+  min-height: 1.35rem;
+  margin: 0.7rem 0;
+  text-align: center;
+  color: #d9e2ef;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.7rem;
+  margin-bottom: 0.85rem;
+}
+
+button {
+  border: 1px solid #44576f;
+  border-radius: 8px;
+  background: #223145;
+  color: var(--text);
+  padding: 0.45rem 0.75rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  filter: brightness(1.1);
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.touch-controls {
+  width: min(260px, 100%);
+  margin: 0 auto 0.8rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+}
+
+.touch-controls button {
+  min-width: 62px;
+  min-height: 52px;
+  font-size: 1.35rem;
+  font-weight: 700;
+}
+
+.touch-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.help {
+  margin: 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #b2becd;
+}
+
+@media (max-width: 540px) {
+  .game-shell {
+    padding: 0.75rem;
+  }
+
+  .hud {
+    font-size: 0.98rem;
+    justify-content: center;
+  }
+}

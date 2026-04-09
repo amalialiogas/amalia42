@@ -1,0 +1,201 @@
+:root {
+  --bg-top: #04060f;
+  --bg-mid: #071629;
+  --bg-bottom: #02111e;
+  --panel: #061928;
+  --panel-border: #1a536b;
+  --scanline: rgba(123, 237, 255, 0.04);
+  --hud: #d8ffff;
+  --accent: #ff8c42;
+  --accent-alt: #5de2e7;
+  --text-soft: #9fcad3;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(93, 226, 231, 0.12) 0, rgba(93, 226, 231, 0) 42%),
+    radial-gradient(circle at 82% 76%, rgba(255, 140, 66, 0.16) 0, rgba(255, 140, 66, 0) 44%),
+    linear-gradient(170deg, var(--bg-top), var(--bg-mid) 45%, var(--bg-bottom));
+  color: var(--hud);
+  font-family: "VT323", monospace;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(to bottom, transparent 48%, var(--scanline) 50%, transparent 52%);
+  background-size: 100% 4px;
+  opacity: 0.45;
+}
+
+.game-shell {
+  width: min(95vw, 560px);
+  display: grid;
+  gap: 0.8rem;
+  padding: 1rem 0.8rem 1.2rem;
+}
+
+.hud {
+  background: linear-gradient(180deg, rgba(7, 29, 45, 0.95), rgba(3, 16, 27, 0.95));
+  border: 2px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 0.45rem 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.hud-item {
+  display: grid;
+  justify-items: center;
+  min-width: 30%;
+}
+
+.hud-label {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.05em;
+  color: var(--text-soft);
+  text-transform: uppercase;
+}
+
+.hud-item strong {
+  font-size: 1.9rem;
+  letter-spacing: 0.04em;
+  color: var(--hud);
+  text-shadow: 0 0 14px rgba(93, 226, 231, 0.35);
+}
+
+.canvas-wrap {
+  position: relative;
+  border: 3px solid var(--panel-border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #00050d;
+  box-shadow:
+    0 0 0 2px rgba(255, 140, 66, 0.25),
+    0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+#game {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  display: block;
+  image-rendering: pixelated;
+  touch-action: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-content: center;
+  justify-items: center;
+  gap: 0.9rem;
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(180deg, rgba(5, 13, 24, 0.82), rgba(2, 8, 18, 0.92));
+}
+
+.overlay.visible {
+  display: grid;
+}
+
+#overlayTitle {
+  margin: 0;
+  text-transform: uppercase;
+  font-family: "Press Start 2P", monospace;
+  font-size: clamp(1.5rem, 6vw, 2.1rem);
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-shadow:
+    0 0 14px rgba(93, 226, 231, 0.35),
+    0 0 22px rgba(255, 140, 66, 0.2);
+}
+
+#overlayText {
+  margin: 0;
+  max-width: 34ch;
+  font-size: 1.55rem;
+  line-height: 1.15;
+  color: var(--text-soft);
+}
+
+#startBtn {
+  border: 2px solid var(--accent);
+  background: linear-gradient(180deg, #ff9e57, #ef7630);
+  color: #1f0d00;
+  border-radius: 999px;
+  padding: 0.55rem 1.2rem;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+#startBtn:hover,
+#startBtn:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(255, 140, 66, 0.35);
+  outline: none;
+}
+
+.mobile-controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(60px, 1fr));
+  gap: 0.5rem;
+}
+
+.control-btn {
+  border: 2px solid rgba(93, 226, 231, 0.7);
+  background: linear-gradient(180deg, rgba(16, 50, 69, 0.9), rgba(10, 32, 44, 0.95));
+  color: #dbffff;
+  border-radius: 10px;
+  min-height: 52px;
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.95rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.control-btn.fire {
+  color: #ffd8bf;
+  border-color: rgba(255, 140, 66, 0.85);
+}
+
+.control-btn.active {
+  transform: translateY(1px) scale(0.985);
+  filter: brightness(1.14);
+}
+
+.hint {
+  margin: 0;
+  text-align: center;
+  color: var(--text-soft);
+  font-size: 1.3rem;
+  letter-spacing: 0.03em;
+}
+
+@media (min-width: 821px) {
+  .game-shell {
+    width: min(88vw, 590px);
+  }
+
+  .mobile-controls {
+    max-width: 420px;
+    justify-self: center;
+  }
+}

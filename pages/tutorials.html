@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tutorials — amalia42</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ── Layout: sidebar + main ── */
+    .tut-layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    /* ── Sidebar ── */
+    .tut-sidebar { position: sticky; top: 7rem; }
+    .sidebar-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1rem;
+    }
+    .sidebar-cats { list-style: none; display: flex; flex-direction: column; gap: 0.2rem; }
+    .sidebar-cats li a {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.5rem 0.75rem; border-radius: 8px;
+      font-size: 0.88rem; color: var(--muted);
+      text-decoration: none; transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .sidebar-cats li a:hover { color: var(--text); background: var(--faint); }
+    .sidebar-cats li a.active { color: var(--accent); background: rgba(232,197,71,0.06); border-color: rgba(232,197,71,0.15); }
+    .cat-count {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem; color: var(--muted);
+      background: rgba(255,255,255,0.06);
+      padding: 0.1rem 0.4rem; border-radius: 10px;
+    }
+    .sidebar-cats li a.active .cat-count { color: var(--accent); }
+
+    .sidebar-divider {
+      height: 1px; background: var(--border);
+      margin: 1.5rem 0;
+    }
+    .rss-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem; color: var(--muted);
+      text-decoration: none; letter-spacing: 0.08em;
+      display: flex; align-items: center; gap: 0.5rem;
+      transition: color 0.2s;
+    }
+    .rss-link:hover { color: var(--accent); }
+
+    /* ── Article list ── */
+    .tut-list { display: flex; flex-direction: column; }
+
+    .tut-article {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none; color: inherit;
+      display: block;
+      transition: padding-left 0.3s;
+      position: relative;
+    }
+    .tut-article::before {
+      content: '';
+      position: absolute; left: -1.5rem; top: 50%;
+      transform: translateY(-50%);
+      width: 3px; height: 0;
+      background: var(--accent);
+      border-radius: 2px;
+      transition: height 0.3s;
+    }
+    .tut-article:hover { padding-left: 0.5rem; }
+    .tut-article:hover::before { height: 40%; }
+
+    .article-meta {
+      display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 0.75rem; flex-wrap: wrap;
+    }
+    .article-cat {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+    }
+    .cat-web    { background: rgba(232,197,71,0.1);  color: var(--accent); }
+    .cat-ai     { background: rgba(126,181,232,0.1); color: var(--blue);   }
+    .cat-photo  { background: rgba(126,200,160,0.1); color: var(--green);  }
+    .cat-edu    { background: rgba(224,122,95,0.1);  color: var(--coral);  }
+    .cat-code   { background: rgba(180,150,220,0.1); color: #b496dc;       }
+
+    .article-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem; color: var(--muted);
+    }
+    .article-read {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem; color: var(--muted);
+      margin-left: auto;
+    }
+
+    .tut-article h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: #fff; margin-bottom: 0.6rem; line-height: 1.2;
+      transition: color 0.2s;
+    }
+    .tut-article:hover h2 { color: var(--accent); }
+
+    .tut-article p {
+      font-size: 0.93rem; color: var(--muted);
+      line-height: 1.72; max-width: 620px;
+    }
+
+    .article-footer {
+      display: flex; align-items: center; gap: 0.5rem;
+      margin-top: 1rem; flex-wrap: wrap;
+    }
+    .article-arrow {
+      margin-left: auto;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.68rem; color: var(--accent);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Featured tutorial (top) ── */
+    .tut-featured {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem;
+      margin-bottom: 2rem; text-decoration: none;
+      display: block; color: inherit;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .tut-featured::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--green));
+    }
+    .tut-featured:hover { border-color: rgba(255,255,255,0.18); transform: translateY(-2px); }
+    .featured-badge {
+      font-family: 'Space Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 1rem; display: block;
+    }
+    .tut-featured h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.8rem; font-weight: 600; color: #fff;
+      margin-bottom: 0.75rem; line-height: 1.15;
+    }
+    .tut-featured p { font-size: 1rem; color: var(--muted); line-height: 1.7; max-width: 580px; }
+  </style>
+</head>
+<body>
+
+<div id="cursor"><div class="cursor-dot"></div></div>
+<div style="position:fixed;top:0;left:0;pointer-events:none;z-index:9998;" id="cursor-ring-wrap">
+  <div class="cursor-ring" style="position:relative;"></div>
+</div>
+<div class="starfield" id="stars"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">amalia<em>42</em>.com</a>
+  <ul class="nav-links">
+    <li><a href="vibe.html">Vibe Lab</a></li>
+    <li><a href="photography.html">Photography</a></li>
+    <li><a href="tutorials.html" class="active">Tutorials</a></li>
+    <li><a href="about.html">Lab Notes</a></li>
+  </ul>
+</nav>
+
+<header class="page-header">
+  <span class="page-tag">03 / Tutorials</span>
+  <h1>Things I figured<br>out and wrote <em>down.</em></h1>
+  <p>Guides on web dev, AI, photography, and anything else worth documenting.</p>
+</header>
+
+<div class="page-content">
+  <div class="tut-layout">
+
+    <!-- Sidebar -->
+    <aside class="tut-sidebar">
+      <div class="sidebar-label">Browse by topic</div>
+      <ul class="sidebar-cats" id="catList">
+        <li><a href="#" class="active" data-cat="all">All topics <span class="cat-count">8</span></a></li>
+        <li><a href="#" data-cat="web">Web dev <span class="cat-count">0</span></a></li>
+        <li><a href="#" data-cat="ai">AI & tools <span class="cat-count">2</span></a></li>
+        <li><a href="#" data-cat="photo">Photography <span class="cat-count">0</span></a></li>
+        <li><a href="#" data-cat="edu">Education <span class="cat-count">0</span></a></li>
+        <li><a href="#" data-cat="code">Coding <span class="cat-count">0</span></a></li>
+      </ul>
+      <div class="sidebar-divider"></div>
+      <a href="#" class="rss-link">⬡ RSS feed</a>
+    </aside>
+
+    <!-- Articles -->
+    <main>
+
+      <!-- Featured -->
+      <a href="tutorials/pillars.html" class="tut-featured" data-cat="web" data-reveal>
+        <span class="featured-badge">★ Featured guide</span>
+        <div class="article-meta">
+          <span class="article-cat cat-web">AI Framework</span>
+          <span class="article-date">April 2026</span>
+          <span class="article-read">3 min read</span>
+        </div>
+        <h2>AI Framework</h2>
+        <p>Three pillars — Conscience, Discernment, Ingenuity — a framework that will help teachers create lesson plans that incorporate Artificial Intelligence into their classes.
+          </p>
+        <div class="article-footer">
+          <span class="tag">AI</span><span class="tag">Education</span><span class="tag">K-11</span>
+          <span class="article-arrow">Read guide →</span>
+        </div>
+      </a>
+
+      <!-- Article list -->
+      <div class="tut-list" id="tutList">
+
+        <a href="tutorials/prompts.html" class="tut-article" data-cat="ai" data-reveal>
+          <div class="article-meta">
+            <span class="article-cat cat-ai">AI Prompts</span>
+            <span class="article-date">April 2026</span>
+            <span class="article-read">5 min read</span>
+          </div>
+          <h2>Crafting AI Prompts for the Best Results</h2>
+          <p>Crafting AI prompts is a skill that can be learned with practice. This guide will show you how to craft prompts that get the best results from your AI.</p>
+          <div class="article-footer">
+            <span class="tag">AI</span><span class="tag">Education</span><span class="tag">K-11</span>
+            <span class="article-arrow">Read →</span>
+          </div>
+        </a>
+
+        
+
+      </div>
+    </main>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 <a href="../index.html">amalia42.com</a> — mostly harmless</p>
+  <p>← <a href="../index.html">Back to home</a></p>
+</footer>
+
+<script src="../js/main.js"></script>
+<script>
+  const ringWrap = document.getElementById('cursor-ring-wrap');
+  let rx=0,ry=0,mx=0,my=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+  (function loop(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ringWrap.style.transform=`translate(${rx-16}px,${ry-16}px)`;requestAnimationFrame(loop);})();
+
+  // Category filter
+  document.querySelectorAll('#catList a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('#catList a').forEach(l=>l.classList.remove('active'));
+      link.classList.add('active');
+      const cat = link.dataset.cat;
+      document.querySelectorAll('.tut-article, .tut-featured').forEach(el => {
+        el.style.display = (cat==='all' || el.dataset.cat===cat) ? '' : 'none';
+      });
+    });
+  });
+</script>
+</body>
+</html>
