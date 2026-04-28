@@ -211,7 +211,7 @@
 ### Things NOT to include
 - No "AI revolution" language
 - No fear-mongering about competitors or peer schools
-- No vendor pitches (Sage.is is named once, in context, and we move on)
+- No vendor pitches (Sage.is is named twice, both in context, and we move on)
 - No reading from slides
 - No apologizing for being a small school
 
