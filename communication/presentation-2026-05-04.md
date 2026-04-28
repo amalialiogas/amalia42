@@ -146,7 +146,7 @@
 
 > **Speaker notes (75 sec):** "Your AI strategy has two layers, and they should be answered very differently."
 >
-> "**The foundation** — your institutional AI, your data, your operations. *Own it.* On-site. Open-source if you can. Sovereign. So your students never have to negotiate with a vendor for the right to learn."
+> "**The foundation** — your institutional AI, your data, your operations. *Own it.* On-site. Open-source if you can. Sovereign. So your students never have to negotiate with a vendor for the right to learn." Ours is Rosie, powered by Sage.is. I want to know what yours will be.
 >
 > "**Everything above it** — the tools your students pick to build their own projects. *Free them.* Let them use Lovable. Let them use Claude Code. Let them use what comes after Claude Code. Your job is not to pick the tool for them. Your job is to build the floor solid enough that they can stand on it and imagine anything."
 
@@ -169,7 +169,7 @@
 
 **Make girls' voices the default, not the diversity slide.**
 
-> **Speaker notes (75 sec):** "This last one is the one I want you to take seriously. The Information Age was built — mostly — by men. We can argue about why. We cannot argue about whether."
+> **Speaker notes (75 sec):** "This last one is the one I want you to take seriously. The Information Age was built — mostly — by visible men and invisible women. We can argue about why. We cannot argue about whether."
 >
 > "The Imagination Age is being built right now. The next decade of AI will be shaped by the people who are in the room when it's made. If we are not deliberate, that room will look exactly like the rooms that built the last era of technology. We do not have to repeat that mistake."
 >
