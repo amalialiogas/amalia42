@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <title>Images From the Space Station / ISS Overhead</title>
+    <meta
+      name="description"
+      content="Recent astronaut photographs taken from the International Space Station, refreshed from NASA's Gateway to Astronaut Photography of Earth."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="page-tabs" aria-label="Main sections">
+        <a class="page-tab" href="./mission.html">Mission Control</a>
+        <a class="page-tab" href="./settings.html">Settings</a>
+        <a class="page-tab" href="./crew.html">Crew</a>
+        <a class="page-tab" href="./experiments.html">Experiments</a>
+        <a class="page-tab" href="./student-programs.html">Student Programs</a>
+        <a class="page-tab" href="./space-careers.html">Space Careers</a>
+        <a class="page-tab" href="./live-lessons.html">Live Lessons</a>
+        <a class="page-tab is-active" href="./station-images.html" aria-current="page">Station Images</a>
+        <a class="page-tab" href="./upcoming-space-events.html">Space Events</a>
+      </nav>
+
+      <header class="hero panel crew-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Astronaut photography / Earth from orbit</p>
+          <h1>Images from the Space Station</h1>
+          <p class="hero-text">
+            Recent images taken by astronauts aboard the International Space
+            Station, including the date and the point on Earth below the station
+            when NASA lists it.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="./mission.html">Back to Mission Control</a>
+            <a
+              class="button button-secondary"
+              href="https://eol.jsc.nasa.gov/SearchPhotos/PhotoIdSets/PhotoIdSets.pl?view=1&set=Latest_ISS_Imagery"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA latest ISS imagery
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stat-card">
+          <p class="hero-stat-label">Recent photos</p>
+          <p id="stationImagesCountValue" class="hero-stat-value">6 images</p>
+          <p id="stationImagesUpdatedValue" class="hero-stat-meta">
+            Snapshot checked May 1, 2026
+          </p>
+        </div>
+      </header>
+
+      <main class="panel station-images-panel" aria-labelledby="stationImagesHeading">
+        <div class="panel-heading station-images-panel-heading">
+          <div>
+            <p class="panel-kicker">NASA Gateway feed</p>
+            <h2 id="stationImagesHeading">Latest ISS imagery</h2>
+          </div>
+          <p class="crew-panel-note">
+            The app server checks NASA Johnson Space Center's latest ISS
+            astronaut photography feed and refreshes this gallery while the page
+            is open.
+          </p>
+        </div>
+
+        <div class="crew-status-row">
+          <span id="stationImagesStatusBadge" class="status-badge status-loading">
+            Checking updates
+          </span>
+          <p id="stationImagesSourceValue" class="crew-source">
+            Loading recent space station images from the app server.
+          </p>
+        </div>
+
+        <div id="stationImagesGrid" class="station-image-grid">
+          <article class="station-image-card">
+            <img
+              src="https://eol.jsc.nasa.gov/DatabaseImages/ESC/small/ISS074/ISS074-E-504746.JPG"
+              alt="ISS074-E-504746 taken from the International Space Station"
+              loading="lazy"
+            />
+            <div class="station-image-card-body">
+              <h3>ISS074-E-504746</h3>
+              <div class="station-image-meta">
+                <p><strong>Date:</strong> April 21, 2026</p>
+                <p><strong>Location:</strong> Nadir latitude 21.8, longitude -108.1</p>
+              </div>
+              <a
+                class="station-image-link"
+                href="https://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission=ISS074&roll=E&frame=504746"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open NASA image record
+              </a>
+            </div>
+          </article>
+
+          <article class="station-image-card">
+            <img
+              src="https://eol.jsc.nasa.gov/DatabaseImages/ESC/small/ISS074/ISS074-E-504743.JPG"
+              alt="ISS074-E-504743 taken from the International Space Station"
+              loading="lazy"
+            />
+            <div class="station-image-card-body">
+              <h3>ISS074-E-504743</h3>
+              <div class="station-image-meta">
+                <p><strong>Date:</strong> April 21, 2026</p>
+                <p><strong>Location:</strong> Nadir latitude 22.3, longitude -108.5</p>
+              </div>
+              <a
+                class="station-image-link"
+                href="https://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission=ISS074&roll=E&frame=504743"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open NASA image record
+              </a>
+            </div>
+          </article>
+
+          <article class="station-image-card">
+            <img
+              src="https://eol.jsc.nasa.gov/DatabaseImages/ESC/small/ISS074/ISS074-E-503975.JPG"
+              alt="ISS074-E-503975 taken from the International Space Station"
+              loading="lazy"
+            />
+            <div class="station-image-card-body">
+              <h3>ISS074-E-503975</h3>
+              <div class="station-image-meta">
+                <p><strong>Date:</strong> April 21, 2026</p>
+                <p><strong>Location:</strong> Nadir latitude 22.4, longitude 46.4</p>
+              </div>
+              <a
+                class="station-image-link"
+                href="https://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission=ISS074&roll=E&frame=503975"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open NASA image record
+              </a>
+            </div>
+          </article>
+
+          <article class="station-image-card">
+            <img
+              src="https://eol.jsc.nasa.gov/DatabaseImages/ESC/small/ISS074/ISS074-E-503974.JPG"
+              alt="ISS074-E-503974 taken from the International Space Station"
+              loading="lazy"
+            />
+            <div class="station-image-card-body">
+              <h3>ISS074-E-503974</h3>
+              <div class="station-image-meta">
+                <p><strong>Date:</strong> April 21, 2026</p>
+                <p><strong>Location:</strong> Nadir latitude 10.2, longitude 36.7</p>
+              </div>
+              <a
+                class="station-image-link"
+                href="https://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission=ISS074&roll=E&frame=503974"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open NASA image record
+              </a>
+            </div>
+          </article>
+
+          <article class="station-image-card">
+            <img
+              src="https://eol.jsc.nasa.gov/DatabaseImages/ESC/small/ISS074/ISS074-E-503973.JPG"
+              alt="ISS074-E-503973 taken from the International Space Station"
+              loading="lazy"
+            />
+            <div class="station-image-card-body">
+              <h3>ISS074-E-503973</h3>
+              <div class="station-image-meta">
+                <p><strong>Date:</strong> April 21, 2026</p>
+                <p><strong>Location:</strong> Nadir latitude -2.2, longitude 27.8</p>
+              </div>
+              <a
+                class="station-image-link"
+                href="https://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission=ISS074&roll=E&frame=503973"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open NASA image record
+              </a>
+            </div>
+          </article>
+
+          <article class="station-image-card">
+            <img
+              src="https://eol.jsc.nasa.gov/DatabaseImages/ESC/small/ISS074/ISS074-E-503972.JPG"
+              alt="ISS074-E-503972 taken from the International Space Station"
+              loading="lazy"
+            />
+            <div class="station-image-card-body">
+              <h3>ISS074-E-503972</h3>
+              <div class="station-image-meta">
+                <p><strong>Date:</strong> April 21, 2026</p>
+                <p><strong>Location:</strong> Nadir latitude -14.6, longitude 18.8</p>
+              </div>
+              <a
+                class="station-image-link"
+                href="https://eol.jsc.nasa.gov/SearchPhotos/photo.pl?mission=ISS074&roll=E&frame=503972"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open NASA image record
+              </a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>
+          Source: NASA Johnson Space Center Gateway to Astronaut Photography of
+          Earth, Latest ISS Imagery.
+        </p>
+      </footer>
+    </div>
+    <script src="./language-tools.js"></script>
+    <script type="module" src="./station-images.js"></script>
+  </body>
+</html>

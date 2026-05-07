@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <title>Get Involved - Student Programs / ISS Overhead</title>
+    <meta
+      name="description"
+      content="ISS-connected student programs open to Canadian classrooms, including Quebec schools."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="page-tabs" aria-label="Main sections">
+        <a class="page-tab" href="./mission.html">Mission Control</a>
+        <a class="page-tab" href="./settings.html">Settings</a>
+        <a class="page-tab" href="./crew.html">Crew</a>
+        <a class="page-tab" href="./experiments.html">Experiments</a>
+        <a class="page-tab is-active" href="./student-programs.html" aria-current="page">Student Programs</a>
+        <a class="page-tab" href="./space-careers.html">Space Careers</a>
+        <a class="page-tab" href="./live-lessons.html">Live Lessons</a>
+        <a class="page-tab" href="./station-images.html">Station Images</a>
+        <a class="page-tab" href="./upcoming-space-events.html">Space Events</a>
+      </nav>
+
+      <header class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Canadian classrooms / Quebec-ready</p>
+          <h1>Get Involved</h1>
+          <p class="hero-text">
+            Real ways for Canadian classrooms - including Quebec schools - to
+            contribute science to the ISS. Every program below is verified open
+            to Canadian students. French resources are noted where available,
+            and English-only options are included when Quebec students can use
+            them.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="./mission.html">Back to Mission Control</a>
+            <a
+              class="button button-secondary"
+              href="https://www.asc-csa.gc.ca/eng/youth-educators/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              CSA youth resources
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stat-card">
+          <p class="hero-stat-label">Student programs</p>
+          <p id="studentProgramCountValue" class="hero-stat-value">15 options</p>
+          <p id="studentProgramsUpdatedValue" class="hero-stat-meta">
+            Snapshot checked May 1, 2026
+          </p>
+        </div>
+      </header>
+
+      <main class="panel programs-panel" aria-labelledby="studentProgramsHeading">
+        <div class="panel-heading programs-panel-heading">
+          <div>
+            <p class="panel-kicker">Student Programs</p>
+            <h2 id="studentProgramsHeading">ISS and space science opportunities</h2>
+          </div>
+          <p class="crew-panel-note">
+            Quebec levels are included where useful. Some opportunities are
+            active or seasonal; others are open classroom resources from past
+            ISS-linked campaigns. French is not used as a filter.
+          </p>
+        </div>
+
+        <div class="crew-status-row">
+          <span id="studentProgramsStatusBadge" class="status-badge status-loading">
+            Checking updates
+          </span>
+          <p id="studentProgramsSourceValue" class="crew-source">
+            Loading student program listings from the app server.
+          </p>
+        </div>
+
+        <div id="studentProgramsGrid" class="program-grid">
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">Direct ISS science</p>
+              <span class="program-status">Open registration</span>
+            </div>
+            <h3>Tomatosphere</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> K-12; CSA also lists K to CEGEP resources.</p>
+              <p><strong>Quebec fit:</strong> Maternelle through Secondary 5 and CEGEP.</p>
+              <p><strong>French:</strong> Yes - Tomatosphere and CSA French pages.</p>
+            </div>
+            <p class="program-description">
+              Students grow two groups of tomato seeds without knowing which
+              group was exposed to space conditions. They measure germination and
+              growth, then submit results online to support research into plants,
+              food systems, and long-duration space travel.
+            </p>
+            <div class="program-links">
+              <a href="https://tomatosphere.org/" target="_blank" rel="noreferrer">
+                Program link
+              </a>
+              <a
+                href="https://www.asc-csa.gc.ca/eng/youth-educators/tomatosphere.asp"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CSA overview
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">CSA classroom activities</p>
+              <span class="program-status">Resources open</span>
+            </div>
+            <h3>Junior Astronauts - CSA</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Grades 6-9.</p>
+              <p><strong>Quebec fit:</strong> Grade 6 to Secondary 3.</p>
+              <p><strong>French:</strong> Yes - CSA French activities are available.</p>
+            </div>
+            <p class="program-description">
+              The CSA Junior Astronauts activity bank gives schools ready-made
+              lessons in science and technology, fitness and nutrition, and
+              teamwork. ISS-linked activities include living in space, food,
+              false alarms, working in space, and environmental monitoring.
+            </p>
+            <div class="program-links">
+              <a
+                href="https://www.asc-csa.gc.ca/eng/youth-educators/activities/science-and-technology/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Activity stream
+              </a>
+              <a
+                href="https://www.asc-csa.gc.ca/fra/jeunes-educateurs/activites/travail-equipe-et-communication/default.asp"
+                target="_blank"
+                rel="noreferrer"
+              >
+                French resources
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">Coding on the ISS</p>
+              <span class="program-status">Annual / seasonal</span>
+            </div>
+            <h3>Astro Pi Challenge</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Students age 19 and under.</p>
+              <p><strong>Quebec fit:</strong> Elementary, secondary, clubs, and teams with a mentor.</p>
+              <p><strong>French:</strong> Yes - CSA French page and French Astro Pi resources.</p>
+            </div>
+            <p class="program-description">
+              Students write code for Astro Pi computers aboard the ISS. Mission
+              Zero is beginner-friendly; Mission Space Lab lets teams design a
+              scientific experiment, with selected projects run on the station.
+              Canadian students are eligible through Canada's ESA cooperation.
+            </p>
+            <div class="program-links">
+              <a
+                href="https://www.asc-csa.gc.ca/eng/youth-educators/activities/astro-pi-challenge.asp"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CSA page
+              </a>
+              <a href="https://astro-pi.org/mission-zero/" target="_blank" rel="noreferrer">
+                Mission Zero
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">Design challenge</p>
+              <span class="program-status">Resource pack open</span>
+            </div>
+            <h3>Little Inventors - Inventions for Space</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Up to Grade 9.</p>
+              <p><strong>Quebec fit:</strong> Up to Secondary 3.</p>
+              <p><strong>French:</strong> Yes - CSA French page is available.</p>
+            </div>
+            <p class="program-description">
+              Students imagine inventions that could make astronauts' lives in
+              space easier or more fun. The original Canadian submission
+              challenge has ended, but the NSERC/CSA classroom resource pack is
+              still available for schools to run the activity.
+            </p>
+            <div class="program-links">
+              <a
+                href="https://www.littleinventors.org/challenges/space-challenge"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Resource pack
+              </a>
+              <a
+                href="https://www.asc-csa.gc.ca/eng/missions/expedition58/activities/little-inventors.asp"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CSA page
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">Student-designed experiment</p>
+              <span class="program-status">Mission 22 planning</span>
+            </div>
+            <h3>Student Spaceflight Experiments Program (SSEP)</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Grades 5-16.</p>
+              <p><strong>Quebec fit:</strong> Grade 5 through CEGEP and undergraduate.</p>
+              <p><strong>French:</strong> No official French resources verified.</p>
+            </div>
+            <p class="program-description">
+              School communities design microgravity experiments that fit within
+              a mini-lab compatible with ISS experiment racks. A local review
+              process selects a flight experiment. Mission 22 lists an
+              experiment design phase in fall 2026 and ISS flight in spring 2027.
+            </p>
+            <div class="program-links">
+              <a href="https://ssep.ncesse.org/" target="_blank" rel="noreferrer">
+                SSEP
+              </a>
+              <a
+                href="https://issnationallab.org/stem/lesson-plans/ssep/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                ISS National Lab
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">ISS data analysis</p>
+              <span class="program-status">Free enrollment</span>
+            </div>
+            <h3>Orion's Quest</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Upper elementary, middle, and high school.</p>
+              <p><strong>Quebec fit:</strong> Upper primary through secondary.</p>
+              <p><strong>French:</strong> No official French resources verified.</p>
+            </div>
+            <p class="program-description">
+              Students act as classroom research assistants for ISS
+              investigations. Missions use downlinked photos, video, and data
+              from station experiments so students can analyze findings and send
+              results back to scientists.
+            </p>
+            <div class="program-links">
+              <a href="https://orionsquest.org/missions/" target="_blank" rel="noreferrer">
+                Missions
+              </a>
+              <a
+                href="https://issnationallab.org/stem/lesson-plans/orionsquest/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                ISS National Lab
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">Student research payloads</p>
+              <span class="program-status">Global provider</span>
+            </div>
+            <h3>DreamUp</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Primary through postsecondary, depending on program.</p>
+              <p><strong>Quebec fit:</strong> Elementary, secondary, CEGEP, and university teams.</p>
+              <p><strong>French:</strong> English only; no official French resources verified.</p>
+            </div>
+            <p class="program-description">
+              DreamUp offers space-based education and student research pathways
+              from classroom curriculum to experiments and code that can operate
+              on ISS hardware. Voyager describes DreamUp as serving students
+              globally and having brought hundreds of student research payloads
+              to the station.
+            </p>
+            <div class="program-links">
+              <a
+                href="https://voyagertechnologies.com/space-solutions/dreamup/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                DreamUp
+              </a>
+              <a
+                href="https://issnationallab.org/stem/lesson-plans/dreamup-germsinspace/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                ISS National Lab
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">ISS plant science</p>
+              <span class="program-status">Kit / challenge</span>
+            </div>
+            <h3>Magnitude.io ExoLab</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> K-12 and adult learners; lessons are leveled by age.</p>
+              <p><strong>Quebec fit:</strong> Primary, secondary, CEGEP clubs, and independent learners.</p>
+              <p><strong>French:</strong> English only; no official French resources verified.</p>
+            </div>
+            <p class="program-description">
+              Students grow plants in a classroom or home ExoLab while following
+              a related ISS experiment. They compare ground data with station
+              imagery and sensor data to investigate plant biology, microgravity,
+              legumes, and food sustainability.
+            </p>
+            <div class="program-links">
+              <a
+                href="https://issnationallab.org/stem/lesson-plans/magnitudeio-exolab/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                ISS National Lab
+              </a>
+              <a href="https://magnitude.io/" target="_blank" rel="noreferrer">
+                Magnitude.io
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">ISS experiment platform</p>
+              <span class="program-status">Global K-12</span>
+            </div>
+            <h3>Quest for Space - Quest for Excellence</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Grade 3-12, with levels for elementary, middle, and high school.</p>
+              <p><strong>Quebec fit:</strong> Grade 3 through Secondary 5.</p>
+              <p><strong>French:</strong> English only; no official French resources verified.</p>
+            </div>
+            <p class="program-description">
+              Students run or design experiments that compare classroom data
+              with experiments on the ISS. Advanced teams can conceptualize,
+              document, code, and prepare experiments for NASA approval and ISS
+              operation.
+            </p>
+            <div class="program-links">
+              <a href="https://q4excellence.com/" target="_blank" rel="noreferrer">
+                Quest for Excellence
+              </a>
+              <a
+                href="https://issnationallab.org/stem/lesson-plans/quest-lab-level-3/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                ISS National Lab
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">ISS classroom resource</p>
+              <span class="program-status">Free resource</span>
+            </div>
+            <h3>Story Time From Space</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Elementary and middle school.</p>
+              <p><strong>Quebec fit:</strong> Primary and lower secondary enrichment.</p>
+              <p><strong>French:</strong> Mostly English; no complete French resource set verified.</p>
+            </div>
+            <p class="program-description">
+              Astronauts aboard the ISS read children's books and demonstrate
+              related science concepts. It is not a flight experiment submission
+              program, but it is a free ISS-based classroom activity available
+              to Quebec students online.
+            </p>
+            <div class="program-links">
+              <a
+                href="https://issnationallab.org/stem/lesson-plans/storytimefromspace/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                ISS National Lab
+              </a>
+              <a href="https://storytimefromspace.com/" target="_blank" rel="noreferrer">
+                Program site
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">Live ISS contact</p>
+              <span class="program-status">Apply by region</span>
+            </div>
+            <h3>ARISS - Amateur Radio on the ISS</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> K-12 and informal education groups.</p>
+              <p><strong>Quebec fit:</strong> Schools can apply through the Canada region.</p>
+              <p><strong>French:</strong> Local support may vary; no official Quebec package verified.</p>
+            </div>
+            <p class="program-description">
+              Schools prepare a STEM and amateur radio project, then apply for a
+              scheduled direct, telebridge, or virtual telebridge contact with an
+              ISS crew member. Students ask questions live while learning radio
+              science, satellite communication, and life in orbit.
+            </p>
+            <div class="program-links">
+              <a href="https://www.rac.ca/ariss/" target="_blank" rel="noreferrer">
+                ARISS Canada
+              </a>
+              <a
+                href="https://www.ariss.org/apply-to-host-an-ariss-contact.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Apply
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">ISS Earth imaging</p>
+              <span class="program-status">Mission-based</span>
+            </div>
+            <h3>Sally Ride EarthKAM</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Intended for middle school; all ages welcome.</p>
+              <p><strong>Quebec fit:</strong> Strong fit for upper primary and secondary geography/science.</p>
+              <p><strong>French:</strong> No official French resources verified.</p>
+            </div>
+            <p class="program-description">
+              During EarthKAM missions, teachers register students to request
+              images of Earth from a camera on the ISS. Students choose targets,
+              submit image requests, then analyze the images they receive.
+            </p>
+            <div class="program-links">
+              <a href="https://www.earthkam.org/" target="_blank" rel="noreferrer">
+                EarthKAM
+              </a>
+              <a
+                href="https://www.nasa.gov/stem-content/sally-ride-earthkam-mission/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                NASA page
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">Health and space science</p>
+              <span class="program-status">Open worldwide</span>
+            </div>
+            <h3>Mission X - Train Like an Astronaut</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Up to age 14; activities adapt by age.</p>
+              <p><strong>Quebec fit:</strong> Primary cycle 2 through Secondary 2.</p>
+              <p><strong>French:</strong> Yes - Mission X has French activities.</p>
+            </div>
+            <p class="program-description">
+              Teams complete physical and scientific activities inspired by
+              astronaut training and submit progress for the Walk to the Moon
+              Challenge. The 2025-2026 challenge is open worldwide and runs
+              through August 14, 2026.
+            </p>
+            <div class="program-links">
+              <a href="https://trainlikeanastronaut.org/" target="_blank" rel="noreferrer">
+                Mission X
+              </a>
+              <a
+                href="https://trainlikeanastronaut.org/fr/activities/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                French activities
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">Canadian design challenge</p>
+              <span class="program-status">Resources open</span>
+            </div>
+            <h3>Space Brain Hack - CSA</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> Grades 6-12.</p>
+              <p><strong>Quebec fit:</strong> Grade 6 through Secondary 5.</p>
+              <p><strong>French:</strong> Yes - CSA French resources are available.</p>
+            </div>
+            <p class="program-description">
+              Students propose solutions for real space-sector challenges,
+              including astronaut mental health and isolation, food production
+              for long missions, and sustainable satellite missions. It is a good
+              Canadian bridge into ISS life-support and exploration topics.
+            </p>
+            <div class="program-links">
+              <a
+                href="https://www.asc-csa.gc.ca/eng/youth-educators/activities/space-brain-hack.asp"
+                target="_blank"
+                rel="noreferrer"
+              >
+                CSA page
+              </a>
+            </div>
+          </article>
+
+          <article class="program-card">
+            <div class="program-card-top">
+              <p class="program-category">CSA activity directory</p>
+              <span class="program-status">Resources open</span>
+            </div>
+            <h3>CSA Activities and Experiments</h3>
+            <div class="program-meta-grid">
+              <p><strong>Grade level:</strong> K-12, with some CEGEP-level resources.</p>
+              <p><strong>Quebec fit:</strong> CSA French page maps many activities to Quebec levels.</p>
+              <p><strong>French:</strong> Yes - full French activity directory.</p>
+            </div>
+            <p class="program-description">
+              This is the broad Canadian classroom hub for ISS, space food,
+              robotics, astronaut health, Earth observation, Moon, and Gateway
+              activities. For Quebec teachers, it is the easiest place to find
+              French-ready classroom materials and grade-level alignment.
+            </p>
+            <div class="program-links">
+              <a
+                href="https://www.asc-csa.gc.ca/eng/youth-educators/activities-and-experiments.asp"
+                target="_blank"
+                rel="noreferrer"
+              >
+                English directory
+              </a>
+              <a
+                href="https://www.asc-csa.gc.ca/fra/jeunes-educateurs/activites-et-experiences.asp"
+                target="_blank"
+                rel="noreferrer"
+              >
+                French directory
+              </a>
+            </div>
+          </article>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>
+          Eligibility and grade notes were checked against CSA, ESA/Astro Pi,
+          ARISS, EarthKAM, ISS National Lab, SSEP, Orion's Quest, Tomatosphere,
+          Little Inventors, DreamUp, Magnitude.io, Quest for Excellence, and
+          Story Time From Space sources on May 1, 2026.
+        </p>
+      </footer>
+    </div>
+    <script src="./language-tools.js"></script>
+    <script type="module" src="./student-programs.js"></script>
+  </body>
+</html>

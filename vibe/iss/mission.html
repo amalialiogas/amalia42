@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <title>Mission Control / ISS Overhead</title>
+    <meta
+      name="description"
+      content="A live web app for tracking the International Space Station with an interactive map and recent orbital trail."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="page-tabs" aria-label="Main sections">
+        <a class="page-tab is-active" href="./mission.html" aria-current="page">Mission Control</a>
+        <a class="page-tab" href="./settings.html">Settings</a>
+        <a class="page-tab" href="./crew.html">Crew</a>
+        <a class="page-tab" href="./experiments.html">Experiments</a>
+        <a class="page-tab" href="./student-programs.html">Student Programs</a>
+        <a class="page-tab" href="./space-careers.html">Space Careers</a>
+        <a class="page-tab" href="./live-lessons.html">Live Lessons</a>
+        <a class="page-tab" href="./station-images.html">Station Images</a>
+        <a class="page-tab" href="./upcoming-space-events.html">Space Events</a>
+      </nav>
+
+      <header class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Low Earth Orbit / Mission Control</p>
+          <h1>ISS Overhead</h1>
+          <p class="hero-text">
+            Follow the International Space Station in real time, explore its
+            recent orbital path, and see exactly where it is right now on an
+            interactive world map.
+          </p>
+          <div class="hero-actions">
+            <button id="followToggle" class="button button-primary" type="button">
+              Auto-follow on
+            </button>
+            <button id="recenterButton" class="button button-secondary" type="button">
+              Center on station
+            </button>
+          </div>
+
+          <div class="telemetry-ribbon" aria-label="Live telemetry summary">
+            <article class="telemetry-pill">
+              <span class="telemetry-pill-label">Orbital sector</span>
+              <strong id="ribbonSectorValue" class="telemetry-pill-value">Awaiting lock</strong>
+            </article>
+            <article class="telemetry-pill">
+              <span class="telemetry-pill-label">Visibility</span>
+              <strong id="ribbonVisibilityValue" class="telemetry-pill-value">Pending</strong>
+            </article>
+            <article class="telemetry-pill">
+              <span class="telemetry-pill-label">Signal time</span>
+              <strong id="ribbonTimeValue" class="telemetry-pill-value">Connecting</strong>
+            </article>
+          </div>
+        </div>
+
+        <div class="hero-stat-card">
+          <p class="hero-stat-label">Current position</p>
+          <p id="positionSummary" class="hero-stat-value">Waiting for signal...</p>
+          <p id="updatedAt" class="hero-stat-meta">Connecting to live feed</p>
+        </div>
+      </header>
+
+      <main class="dashboard">
+        <section class="panel map-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">Interactive view</p>
+              <h2>Orbital map</h2>
+            </div>
+            <div class="legend" aria-label="Map legend">
+              <span class="legend-item">
+                <span class="legend-dot legend-dot-live"></span>
+                ISS now
+              </span>
+              <span class="legend-item">
+                <span class="legend-line"></span>
+                Last 90 minutes
+              </span>
+            </div>
+          </div>
+
+          <div class="map-shell">
+            <div id="map" class="map" aria-label="World map showing the ISS location"></div>
+            <div class="map-overlay map-overlay-top" aria-hidden="true">
+              <article class="map-chip">
+                <span class="map-chip-label">Orbital sector</span>
+                <strong id="sectorValue" class="map-chip-value">Awaiting lock</strong>
+              </article>
+              <article class="map-chip">
+                <span class="map-chip-label">Tracking mode</span>
+                <strong id="trackingModeValue" class="map-chip-value">Auto-follow</strong>
+              </article>
+            </div>
+            <div class="map-overlay map-overlay-bottom" aria-hidden="true">
+              <article class="map-callout">
+                <span class="map-chip-label">Current pass</span>
+                <strong id="mapPositionValue" class="map-callout-value">
+                  Waiting for signal...
+                </strong>
+              </article>
+            </div>
+          </div>
+
+          <div class="map-footer">
+            <span id="statusBadge" class="status-badge status-loading">Connecting</span>
+            <p class="map-caption">
+              Drag or zoom to explore the map. Toggle auto-follow whenever you
+              want the station to remain centered.
+            </p>
+          </div>
+        </section>
+
+        <aside class="sidebar">
+          <section class="panel metrics-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="panel-kicker">Live telemetry</p>
+                <h2>At a glance</h2>
+              </div>
+            </div>
+
+            <div class="metric-grid">
+              <article class="metric-card">
+                <p class="metric-label">Latitude</p>
+                <p id="latitudeValue" class="metric-value">--</p>
+              </article>
+              <article class="metric-card">
+                <p class="metric-label">Longitude</p>
+                <p id="longitudeValue" class="metric-value">--</p>
+              </article>
+              <article class="metric-card">
+                <p class="metric-label">Altitude</p>
+                <p id="altitudeValue" class="metric-value">--</p>
+              </article>
+              <article class="metric-card">
+                <p class="metric-label">Velocity</p>
+                <p id="velocityValue" class="metric-value">--</p>
+              </article>
+              <article class="metric-card">
+                <p class="metric-label">Visibility</p>
+                <p id="visibilityValue" class="metric-value">--</p>
+              </article>
+              <article class="metric-card">
+                <p class="metric-label">Heading</p>
+                <p id="headingValue" class="metric-value">--</p>
+              </article>
+              <article class="metric-card">
+                <p class="metric-label">Ground footprint</p>
+                <p id="footprintValue" class="metric-value">--</p>
+              </article>
+              <article class="metric-card">
+                <p class="metric-label">Trail samples</p>
+                <p id="sampleCountValue" class="metric-value">--</p>
+              </article>
+              <article class="metric-card metric-card-wide">
+                <p class="metric-label">Trail window</p>
+                <p id="trailWindowValue" class="metric-value">--</p>
+              </article>
+            </div>
+          </section>
+        </aside>
+
+        <section class="panel notes-panel">
+          <div class="panel-heading">
+            <div>
+              <p class="panel-kicker">How it works</p>
+              <h2>Tracking notes</h2>
+            </div>
+          </div>
+
+          <ul class="notes-list">
+            <li>The live marker updates every few seconds using public ISS telemetry.</li>
+            <li>The blue line shows the last 90 minutes of sampled positions, roughly one orbit.</li>
+            <li>The larger halo estimates the station’s ground visibility footprint.</li>
+          </ul>
+        </section>
+      </main>
+
+      <section class="panel location-panel" aria-labelledby="locationHeading">
+        <div class="panel-heading location-panel-heading">
+          <div>
+            <p class="panel-kicker">Local watch</p>
+            <h2 id="locationHeading">Where is it from me?</h2>
+          </div>
+          <p class="location-panel-note">
+            Save your watch point in Settings to see the ISS distance and
+            direction relative to you. Notifications are sent while Mission Control
+            is open.
+          </p>
+        </div>
+
+        <div class="location-grid location-grid-single">
+          <div class="location-column">
+            <div class="location-card watch-monitor">
+              <div class="watch-monitor-header">
+                <span id="watchStateBadge" class="status-badge status-loading">
+                  Waiting for your location
+                </span>
+                <h3 id="watchHeadline" class="location-card-title">
+                  Track the ISS from where you are
+                </h3>
+                <p id="watchSummary" class="location-summary-text">
+                  Save your watch point in Settings and this panel will show how
+                  far away the ISS is, which direction to look, and whether
+                  notifications are armed.
+                </p>
+              </div>
+
+              <div class="watch-stat-grid">
+                <article class="watch-stat-card">
+                  <p class="metric-label">Your location</p>
+                  <p id="watchLocationValue" class="watch-stat-value">No location saved</p>
+                </article>
+                <article class="watch-stat-card">
+                  <p class="metric-label">Distance to ISS</p>
+                  <p id="watchDistanceValue" class="watch-stat-value">--</p>
+                </article>
+                <article class="watch-stat-card">
+                  <p class="metric-label">Direction from you</p>
+                  <p id="watchDirectionValue" class="watch-stat-value">--</p>
+                </article>
+                <article class="watch-stat-card">
+                  <p class="metric-label">Watch radius</p>
+                  <p id="watchRadiusValue" class="watch-stat-value">--</p>
+                </article>
+                <article class="watch-stat-card watch-stat-card-wide">
+                  <p class="metric-label">Notifications</p>
+                  <p id="watchNotificationValue" class="watch-stat-value">Not armed</p>
+                </article>
+              </div>
+
+              <div class="watch-log">
+                <p class="panel-kicker">Local relation</p>
+                <ol id="watchLogList" class="watch-log-list">
+                  <li>Open Settings to save your latitude and longitude.</li>
+                  <li>Turn on notifications if you want an overhead alert.</li>
+                  <li>Watch the live distance and direction update every few seconds.</li>
+                </ol>
+              </div>
+
+              <div class="location-actions">
+                <a class="button button-primary" href="./settings.html">Open watch settings</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <p>
+          Built with Leaflet and Natural Earth land outlines. Live position
+          data is sourced from the public Where The ISS At API.
+        </p>
+      </footer>
+    </div>
+
+    <script src="./language-tools.js"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

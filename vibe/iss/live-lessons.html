@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <title>Live Lessons / ISS Overhead</title>
+    <meta
+      name="description"
+      content="Upcoming online live lessons and webinars about space exploration, CSA, NASA, Mars, Artemis, the Moon, and the ISS."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="page-tabs" aria-label="Main sections">
+        <a class="page-tab" href="./mission.html">Mission Control</a>
+        <a class="page-tab" href="./settings.html">Settings</a>
+        <a class="page-tab" href="./crew.html">Crew</a>
+        <a class="page-tab" href="./experiments.html">Experiments</a>
+        <a class="page-tab" href="./student-programs.html">Student Programs</a>
+        <a class="page-tab" href="./space-careers.html">Space Careers</a>
+        <a class="page-tab is-active" href="./live-lessons.html" aria-current="page">Live Lessons</a>
+        <a class="page-tab" href="./station-images.html">Station Images</a>
+        <a class="page-tab" href="./upcoming-space-events.html">Space Events</a>
+      </nav>
+
+      <header class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Online events / Space exploration</p>
+          <h1>Live Lessons</h1>
+          <p class="hero-text">
+            Upcoming live lessons, webinars, and online mission coverage about
+            the ISS, CSA, NASA, Mars, Artemis, the Moon, and deep-space
+            exploration. Listings are grouped by month and refreshed from the
+            app server.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="./mission.html">Back to Mission Control</a>
+            <a
+              class="button button-secondary"
+              href="https://exploringbytheseat.com/live-events/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Exploring by the Seat
+            </a>
+            <a
+              class="button button-secondary"
+              href="https://www.asc-csa.gc.ca/eng/events/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              CSA events
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stat-card">
+          <p class="hero-stat-label">Upcoming listings</p>
+          <p id="liveLessonsCountValue" class="hero-stat-value">5 listings</p>
+          <p id="liveLessonsUpdatedValue" class="hero-stat-meta">
+            Snapshot checked May 1, 2026
+          </p>
+        </div>
+      </header>
+
+      <main class="panel lessons-panel" aria-labelledby="liveLessonsHeading">
+        <div class="panel-heading lessons-panel-heading">
+          <div>
+            <p class="panel-kicker">Live Lessons</p>
+            <h2 id="liveLessonsHeading">Space webinars by month</h2>
+          </div>
+          <p class="crew-panel-note">
+            The app checks Exploring by the Seat's Space Exploration event feed
+            and the Canadian Space Agency events calendar, then combines them
+            with selected NASA online events. Exact launch coverage times can
+            change, so always confirm on the source page.
+          </p>
+        </div>
+
+        <div class="crew-status-row">
+          <span id="liveLessonsStatusBadge" class="status-badge status-loading">
+            Checking updates
+          </span>
+          <p id="liveLessonsSourceValue" class="crew-source">
+            Loading live lessons from the app server.
+          </p>
+        </div>
+
+        <div id="liveLessonsMonthList" class="lesson-month-list">
+          <section class="lesson-month">
+            <h3 class="lesson-month-heading">May 2026</h3>
+            <div class="lesson-grid">
+              <article class="lesson-card">
+                <div class="lesson-card-top">
+                  <p class="lesson-provider">NASA Flight Opportunities</p>
+                  <span class="lesson-type">Webinar</span>
+                </div>
+                <h3>Heat Shield Flight Testing and Space Industry Growth: NASA Successes</h3>
+                <div class="lesson-meta-grid">
+                  <p><strong>Date:</strong> Wednesday, May 6, 2026</p>
+                  <p><strong>Time:</strong> 1:00 PM to 2:00 PM ET</p>
+                  <p><strong>Age group:</strong> High school, CEGEP, university, and adult learners.</p>
+                </div>
+                <p class="lesson-description">
+                  A NASA Community of Practice webinar about flight testing heat
+                  shield technologies and how NASA-developed materials support
+                  space industry growth.
+                </p>
+                <a
+                  class="lesson-link"
+                  href="https://www.nasa.gov/stmd-flight-opportunities/fo-resources/community-of-practice-webinars/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open NASA Community of Practice
+                </a>
+              </article>
+
+              <article class="lesson-card">
+                <div class="lesson-card-top">
+                  <p class="lesson-provider">NASA</p>
+                  <span class="lesson-type">Live mission coverage</span>
+                </div>
+                <h3>NASA's SpaceX CRS-34 mission to the International Space Station</h3>
+                <div class="lesson-meta-grid">
+                  <p><strong>Date:</strong> No earlier than Tuesday, May 12, 2026</p>
+                  <p><strong>Time:</strong> Launch time to be confirmed by NASA</p>
+                  <p><strong>Age group:</strong> All ages; best for upper elementary and older with teacher context.</p>
+                </div>
+                <p class="lesson-description">
+                  NASA and SpaceX are targeting this commercial resupply mission
+                  to deliver supplies, science investigations, and equipment to
+                  the ISS.
+                </p>
+                <a
+                  class="lesson-link"
+                  href="https://www.nasa.gov/event/nasas-spacex-crs-34/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open NASA Events
+                </a>
+              </article>
+
+              <article class="lesson-card">
+                <div class="lesson-card-top">
+                  <p class="lesson-provider">Exploring by the Seat of Your Pants</p>
+                  <span class="lesson-type">Live classroom lesson</span>
+                </div>
+                <h3>Exploring Mars with Dr Tanya Harrison</h3>
+                <div class="lesson-meta-grid">
+                  <p><strong>Date:</strong> Friday, May 15, 2026</p>
+                  <p><strong>Time:</strong> 9:00 AM to 9:45 AM ET</p>
+                  <p><strong>Age group:</strong> Grades 4-12 suggested; source feed does not publish an exact grade band.</p>
+                </div>
+                <p class="lesson-description">
+                  Dr. Tanya Harrison discusses current Mars missions, robotic
+                  exploration, and what Mars can teach us about Earth and our
+                  place in the universe.
+                </p>
+                <a
+                  class="lesson-link"
+                  href="https://exploringbytheseat.com/lessons/exploring-mars-with-dr-tanya-harrison/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open Exploring by the Seat of Your Pants
+                </a>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson-month">
+            <h3 class="lesson-month-heading">August 2026</h3>
+            <div class="lesson-grid">
+              <article class="lesson-card">
+                <div class="lesson-card-top">
+                  <p class="lesson-provider">NASA</p>
+                  <span class="lesson-type">Live mission coverage</span>
+                </div>
+                <h3>NASA's SpaceX CRS-35 mission to the International Space Station</h3>
+                <div class="lesson-meta-grid">
+                  <p><strong>Date:</strong> No earlier than August 2026</p>
+                  <p><strong>Time:</strong> Time to be confirmed by NASA</p>
+                  <p><strong>Age group:</strong> All ages; best for upper elementary and older with teacher context.</p>
+                </div>
+                <p class="lesson-description">
+                  NASA's next listed SpaceX commercial resupply mission after
+                  CRS-34 will carry cargo and science to the ISS.
+                </p>
+                <a
+                  class="lesson-link"
+                  href="https://www.nasa.gov/event/nasas-spacex-crs-35/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open NASA Events
+                </a>
+              </article>
+            </div>
+          </section>
+
+          <section class="lesson-month">
+            <h3 class="lesson-month-heading">September 2026</h3>
+            <div class="lesson-grid">
+              <article class="lesson-card">
+                <div class="lesson-card-top">
+                  <p class="lesson-provider">NASA / Canadian Space Agency</p>
+                  <span class="lesson-type">Live mission coverage</span>
+                </div>
+                <h3>NASA's SpaceX Crew-13 mission with CSA astronaut Joshua Kutryk</h3>
+                <div class="lesson-meta-grid">
+                  <p><strong>Date:</strong> No earlier than mid-September 2026</p>
+                  <p><strong>Time:</strong> Launch and coverage times to be confirmed by NASA and CSA</p>
+                  <p><strong>Age group:</strong> All ages; especially relevant for Canadian elementary, secondary, CEGEP, and university students.</p>
+                </div>
+                <p class="lesson-description">
+                  CSA astronaut Joshua Kutryk is assigned to NASA's SpaceX
+                  Crew-13 mission to the ISS, giving Canadian classrooms a live
+                  connection to a Canadian astronaut beginning a long-duration
+                  science expedition on the Station.
+                </p>
+                <div class="lesson-links">
+                  <a
+                    class="lesson-link"
+                    href="https://www.nasa.gov/event/nasas-spacex-crew-13/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Open NASA event
+                  </a>
+                  <a
+                    class="lesson-link"
+                    href="https://www.asc-csa.gc.ca/eng/missions/crew-13/mission.asp"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Open CSA mission page
+                  </a>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>
+          Sources: Exploring by the Seat of Your Pants, Canadian Space Agency,
+          NASA Live, NASA Events, and NASA Flight Opportunities webinar
+          listings.
+        </p>
+      </footer>
+    </div>
+    <script src="./language-tools.js"></script>
+    <script type="module" src="./live-lessons.js"></script>
+  </body>
+</html>

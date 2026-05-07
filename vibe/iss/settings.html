@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <title>Settings / ISS Overhead</title>
+    <meta
+      name="description"
+      content="Set the local ISS watch point, overhead radius, and notification preference for ISS Overhead."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="page-tabs" aria-label="Main sections">
+        <a class="page-tab" href="./mission.html">Mission Control</a>
+        <a class="page-tab is-active" href="./settings.html" aria-current="page">Settings</a>
+        <a class="page-tab" href="./crew.html">Crew</a>
+        <a class="page-tab" href="./experiments.html">Experiments</a>
+        <a class="page-tab" href="./student-programs.html">Student Programs</a>
+        <a class="page-tab" href="./space-careers.html">Space Careers</a>
+        <a class="page-tab" href="./live-lessons.html">Live Lessons</a>
+        <a class="page-tab" href="./station-images.html">Station Images</a>
+        <a class="page-tab" href="./upcoming-space-events.html">Space Events</a>
+      </nav>
+
+      <header class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Local watch / Settings</p>
+          <h1>Settings</h1>
+          <p class="hero-text">
+            Set the classroom watch point Mission Control uses to calculate how far
+            away the ISS is, which direction it is from you, and when to send an
+            overhead alert.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="./mission.html">Back to Mission Control</a>
+            <a class="button button-secondary" href="./crew.html">Crew bios</a>
+          </div>
+        </div>
+
+        <div class="hero-stat-card">
+          <p class="hero-stat-label">Saved watch point</p>
+          <p id="settingsSavedLabelValue" class="hero-stat-value">Not set</p>
+          <p id="settingsSavedMetaValue" class="hero-stat-meta">Add a location below</p>
+        </div>
+      </header>
+
+      <main class="panel location-panel settings-panel" aria-labelledby="settingsHeading">
+        <div class="panel-heading location-panel-heading">
+          <div>
+            <p class="panel-kicker">Your location</p>
+            <h2 id="settingsHeading">Set watch point</h2>
+          </div>
+          <p class="location-panel-note">
+            Enter an address to look up coordinates, type latitude and longitude
+            manually, or let the browser use your current location.
+          </p>
+        </div>
+
+        <div class="location-grid">
+          <div class="location-column">
+            <div class="location-card">
+              <p class="panel-kicker">Watch settings</p>
+              <h3 class="location-card-title">Location and alert radius</h3>
+              <p class="location-help-text">
+                These settings are saved in this browser and used by the Mission Control
+                page.
+              </p>
+
+              <form id="locationSettingsForm" class="location-form">
+                <div class="form-row">
+                  <label class="form-label" for="locationLabelInput">Location label</label>
+                  <input
+                    id="locationLabelInput"
+                    class="form-input"
+                    type="text"
+                    placeholder="Classroom"
+                  />
+                </div>
+
+                <div class="form-row">
+                  <label class="form-label" for="locationAddressInput">Address</label>
+                  <input
+                    id="locationAddressInput"
+                    class="form-input"
+                    type="text"
+                    autocomplete="street-address"
+                    placeholder="123 Main Street, Montreal, QC"
+                  />
+                </div>
+
+                <div class="form-split">
+                  <div class="form-row">
+                    <label class="form-label" for="locationLatitudeInput">Latitude</label>
+                    <input
+                      id="locationLatitudeInput"
+                      class="form-input"
+                      type="number"
+                      step="0.0001"
+                      min="-90"
+                      max="90"
+                    />
+                  </div>
+
+                  <div class="form-row">
+                    <label class="form-label" for="locationLongitudeInput">Longitude</label>
+                    <input
+                      id="locationLongitudeInput"
+                      class="form-input"
+                      type="number"
+                      step="0.0001"
+                      min="-180"
+                      max="180"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-split form-split-tight">
+                  <div class="form-row">
+                    <label class="form-label" for="locationRadiusInput">Overhead radius (km)</label>
+                    <input
+                      id="locationRadiusInput"
+                      class="form-input"
+                      type="number"
+                      step="10"
+                      min="50"
+                      max="2500"
+                    />
+                  </div>
+
+                  <label class="checkbox-row" for="notifyEnabledInput">
+                    <input id="notifyEnabledInput" type="checkbox" />
+                    <span>Notify me when the ISS enters this radius</span>
+                  </label>
+                </div>
+
+                <div class="location-actions">
+                  <button id="findAddressButton" class="button button-secondary" type="button">
+                    Find coordinates
+                  </button>
+                  <button id="useCurrentLocationButton" class="button button-secondary" type="button">
+                    Use my current location
+                  </button>
+                  <button class="button button-primary location-submit" type="submit">
+                    Save watch settings
+                  </button>
+                </div>
+              </form>
+
+              <p id="settingsFeedback" class="location-feedback" aria-live="polite"></p>
+            </div>
+          </div>
+
+          <div class="location-column">
+            <div class="location-card settings-summary-card">
+              <p class="panel-kicker">Saved setup</p>
+              <h3 class="location-card-title">Current watch point</h3>
+              <p id="savedWatchSummary" class="location-summary-text">
+                No watch point has been saved yet.
+              </p>
+
+              <div class="watch-stat-grid settings-stat-grid">
+                <article class="watch-stat-card">
+                  <p class="metric-label">Coordinates</p>
+                  <p id="savedCoordinatesValue" class="watch-stat-value">--</p>
+                </article>
+                <article class="watch-stat-card">
+                  <p class="metric-label">Radius</p>
+                  <p id="savedRadiusValue" class="watch-stat-value">--</p>
+                </article>
+                <article class="watch-stat-card watch-stat-card-wide">
+                  <p class="metric-label">Notifications</p>
+                  <p id="savedNotificationValue" class="watch-stat-value">Off</p>
+                </article>
+              </div>
+
+              <div class="watch-log">
+                <p class="panel-kicker">How alerts work</p>
+                <ol class="watch-log-list">
+                  <li>Save a watch point on this page.</li>
+                  <li>Open Mission Control during class.</li>
+                  <li>The app checks the live ISS position against your watch radius.</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>
+          Watch settings are stored in this browser and used by the live Mission Control
+          page.
+        </p>
+      </footer>
+    </div>
+    <script src="./language-tools.js"></script>
+    <script src="./watch-settings.js"></script>
+  </body>
+</html>

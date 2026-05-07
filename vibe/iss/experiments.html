@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <title>Current ISS Experiments / ISS Overhead</title>
+    <meta
+      name="description"
+      content="Current NASA-reported International Space Station experiment highlights for ISS Overhead."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="page-tabs" aria-label="Main sections">
+        <a class="page-tab" href="./mission.html">Mission Control</a>
+        <a class="page-tab" href="./settings.html">Settings</a>
+        <a class="page-tab" href="./crew.html">Crew</a>
+        <a class="page-tab is-active" href="./experiments.html" aria-current="page">Experiments</a>
+        <a class="page-tab" href="./student-programs.html">Student Programs</a>
+        <a class="page-tab" href="./space-careers.html">Space Careers</a>
+        <a class="page-tab" href="./live-lessons.html">Live Lessons</a>
+        <a class="page-tab" href="./station-images.html">Station Images</a>
+        <a class="page-tab" href="./upcoming-space-events.html">Space Events</a>
+      </nav>
+
+      <header class="hero panel crew-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">ISS research / May 1, 2026 snapshot</p>
+          <h1>Current ISS experiments</h1>
+          <p class="hero-text">
+            A source-linked snapshot of NASA-reported investigations active or
+            recently handled aboard Expedition 74 on the International Space
+            Station.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="./mission.html">Back to Mission Control</a>
+            <a
+              class="button button-secondary"
+              href="https://www.nasa.gov/mission/station/research-explorer/search/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA Research Explorer
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stat-card">
+          <p class="hero-stat-label">Research highlights</p>
+          <p id="experimentsCountValue" class="hero-stat-value">10 experiments</p>
+          <p id="experimentsUpdatedValue" class="hero-stat-meta">
+            Updated from NASA station research reports
+          </p>
+        </div>
+      </header>
+
+      <main class="panel experiments-panel" aria-labelledby="experimentsHeading">
+        <div class="panel-heading experiments-panel-heading">
+          <div>
+            <p class="panel-kicker">Science on station</p>
+            <h2 id="experimentsHeading">Research underway</h2>
+          </div>
+          <p class="crew-panel-note">
+            NASA publishes daily station activity reports and a broader research
+            database, but not one complete public live manifest for every active
+            payload. This page uses official NASA reporting as the current
+            source of record.
+          </p>
+        </div>
+
+        <div class="crew-status-row">
+          <span id="experimentsStatusBadge" class="status-badge status-loading">
+            Checking updates
+          </span>
+          <p id="experimentsSourceValue" class="crew-source">
+            Loading current research highlights from the app server.
+          </p>
+        </div>
+
+        <div id="experimentsGrid" class="experiment-grid">
+          <article class="experiment-card">
+            <div class="experiment-card-top">
+              <p class="experiment-category">Human health</p>
+              <span class="experiment-status">Active research</span>
+            </div>
+            <h3>Cardiovascular health and infectious disease</h3>
+            <p class="experiment-copy">
+              Heart tissue and bacteria samples are being processed in the
+              Multi-use Variable-g Platform to study how microbes affect heart
+              tissue in microgravity.
+            </p>
+            <p class="experiment-impact">
+              <strong>Why it matters:</strong> Results can support treatments
+              for cardiovascular and infectious diseases during spaceflight and
+              on Earth.
+            </p>
+            <div class="experiment-tags">
+              <span>Heart tissue</span>
+              <span>Microbes</span>
+              <span>MVP</span>
+            </div>
+            <a
+              class="experiment-source-link"
+              href="https://www.nasa.gov/blogs/spacestation/2026/04/16/station-orbits-higher-as-crew-runs-new-science-experiments/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA source
+            </a>
+          </article>
+
+          <article class="experiment-card">
+            <div class="experiment-card-top">
+              <p class="experiment-category">Biotechnology</p>
+              <span class="experiment-status">Active research</span>
+            </div>
+            <h3>Blood stem cells in KERMIT</h3>
+            <p class="experiment-copy">
+              Blood stem cell samples are being imaged with the KERMIT
+              fluorescent microscope so ground teams can study cell production
+              in microgravity.
+            </p>
+            <p class="experiment-impact">
+              <strong>Why it matters:</strong> The work may help advance blood
+              disease and cancer therapy research.
+            </p>
+            <div class="experiment-tags">
+              <span>Stem cells</span>
+              <span>Microscopy</span>
+              <span>Health</span>
+            </div>
+            <a
+              class="experiment-source-link"
+              href="https://www.nasa.gov/blogs/spacestation/2026/04/20/space-health-research-fills-day-before-cargo-craft-departs/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA source
+            </a>
+          </article>
+
+          <article class="experiment-card">
+            <div class="experiment-card-top">
+              <p class="experiment-category">Space botany</p>
+              <span class="experiment-status">Active research</span>
+            </div>
+            <h3>Veg-06</h3>
+            <p class="experiment-copy">
+              Alfalfa plants and root microbes are growing inside the Veggie
+              facility to test how beneficial plant-microbe relationships behave
+              in microgravity.
+            </p>
+            <p class="experiment-impact">
+              <strong>Why it matters:</strong> The study informs future crop
+              systems that could recycle nutrients and produce food in space.
+            </p>
+            <div class="experiment-tags">
+              <span>Plants</span>
+              <span>Microbes</span>
+              <span>Veggie</span>
+            </div>
+            <a
+              class="experiment-source-link"
+              href="https://www.nasa.gov/missions/station/iss-research/nutrition-research-arrives-aboard-space-station/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA source
+            </a>
+          </article>
+
+          <article class="experiment-card">
+            <div class="experiment-card-top">
+              <p class="experiment-category">Food systems</p>
+              <span class="experiment-status">Recently delivered</span>
+            </div>
+            <h3>Space Surface Spirulina</h3>
+            <p class="experiment-copy">
+              JAXA's investigation tests growing protein-rich spirulina on a
+              thin-film surface instead of in water tanks.
+            </p>
+            <p class="experiment-impact">
+              <strong>Why it matters:</strong> Spirulina could help provide
+              fresh food while conserving water and producing oxygen for crews.
+            </p>
+            <div class="experiment-tags">
+              <span>Algae</span>
+              <span>Nutrition</span>
+              <span>Life support</span>
+            </div>
+            <a
+              class="experiment-source-link"
+              href="https://www.nasa.gov/missions/station/iss-research/nutrition-research-arrives-aboard-space-station/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA source
+            </a>
+          </article>
+
+          <article class="experiment-card">
+            <div class="experiment-card-top">
+              <p class="experiment-category">Plant science</p>
+              <span class="experiment-status">Recently delivered</span>
+            </div>
+            <h3>Seed Vigour</h3>
+            <p class="experiment-copy">
+              ESA's study exposes seeds from several plant species to
+              spaceflight conditions to see whether seed growth and performance
+              are affected.
+            </p>
+            <p class="experiment-impact">
+              <strong>Why it matters:</strong> The results can help researchers
+              protect crop seeds during long-duration missions.
+            </p>
+            <div class="experiment-tags">
+              <span>Seeds</span>
+              <span>Crop storage</span>
+              <span>ESA</span>
+            </div>
+            <a
+              class="experiment-source-link"
+              href="https://www.nasa.gov/missions/station/iss-research/nutrition-research-arrives-aboard-space-station/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA source
+            </a>
+          </article>
+
+          <article class="experiment-card">
+            <div class="experiment-card-top">
+              <p class="experiment-category">Education</p>
+              <span class="experiment-status">Recently delivered</span>
+            </div>
+            <h3>Tomatosphere 9</h3>
+            <p class="experiment-copy">
+              The Canadian Space Agency is exposing 1.8 million tomato seeds to
+              microgravity before distributing them to classrooms for comparison
+              with ground controls.
+            </p>
+            <p class="experiment-impact">
+              <strong>Why it matters:</strong> Students can directly test how
+              spaceflight conditions affect plant growth.
+            </p>
+            <div class="experiment-tags">
+              <span>Tomato seeds</span>
+              <span>Classrooms</span>
+              <span>CSA</span>
+            </div>
+            <a
+              class="experiment-source-link"
+              href="https://www.nasa.gov/missions/station/iss-research/nutrition-research-arrives-aboard-space-station/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA source
+            </a>
+          </article>
+
+          <article class="experiment-card">
+            <div class="experiment-card-top">
+              <p class="experiment-category">Biology</p>
+              <span class="experiment-status">Active research</span>
+            </div>
+            <h3>Roundworm gut health research</h3>
+            <p class="experiment-copy">
+              Roundworms are being recorded to observe how their bodies and gut
+              microbes change in microgravity.
+            </p>
+            <p class="experiment-impact">
+              <strong>Why it matters:</strong> The work may guide probiotics and
+              other protective health strategies for astronauts and patients on
+              Earth.
+            </p>
+            <div class="experiment-tags">
+              <span>Microbiome</span>
+              <span>Gut health</span>
+              <span>Biology</span>
+            </div>
+            <a
+              class="experiment-source-link"
+              href="https://www.nasa.gov/blogs/spacestation/2026/04/17/plants-and-worms-informing-future-missions-crew-preps-for-computer-upgrades/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA source
+            </a>
+          </article>
+
+          <article class="experiment-card">
+            <div class="experiment-card-top">
+              <p class="experiment-category">Earth science</p>
+              <span class="experiment-status">Installed hardware</span>
+            </div>
+            <h3>External Earth observation payloads</h3>
+            <p class="experiment-copy">
+              Three payloads were installed for the NanoRacks External Platform,
+              including ultra-high-resolution hyperspectral imaging and a radio
+              signal instrument for ionosphere measurements.
+            </p>
+            <p class="experiment-impact">
+              <strong>Why it matters:</strong> External station platforms let
+              researchers test Earth observation technology in orbit.
+            </p>
+            <div class="experiment-tags">
+              <span>Hyperspectral</span>
+              <span>Ionosphere</span>
+              <span>External payloads</span>
+            </div>
+            <a
+              class="experiment-source-link"
+              href="https://www.nasa.gov/blogs/spacestation/2026/04/20/space-health-research-fills-day-before-cargo-craft-departs/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA source
+            </a>
+          </article>
+
+          <article class="experiment-card">
+            <div class="experiment-card-top">
+              <p class="experiment-category">Human performance</p>
+              <span class="experiment-status">Installed hardware</span>
+            </div>
+            <h3>European Enhanced Exploration Exercise Device</h3>
+            <p class="experiment-copy">
+              The E4D exercise system is being evaluated inside Columbus for
+              crew workouts on exploration missions beyond low Earth orbit.
+            </p>
+            <p class="experiment-impact">
+              <strong>Why it matters:</strong> Better exercise hardware supports
+              crew muscle, bone, and cardiovascular health on long missions.
+            </p>
+            <div class="experiment-tags">
+              <span>Exercise</span>
+              <span>Crew health</span>
+              <span>Exploration</span>
+            </div>
+            <a
+              class="experiment-source-link"
+              href="https://www.nasa.gov/blogs/spacestation/2026/04/16/station-orbits-higher-as-crew-runs-new-science-experiments/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA source
+            </a>
+          </article>
+
+          <article class="experiment-card">
+            <div class="experiment-card-top">
+              <p class="experiment-category">Physical science</p>
+              <span class="experiment-status">Upgraded hardware</span>
+            </div>
+            <h3>Cold Atom Lab quantum science</h3>
+            <p class="experiment-copy">
+              A new quantum physics module expands Cold Atom Lab capabilities in
+              the Destiny laboratory module.
+            </p>
+            <p class="experiment-impact">
+              <strong>Why it matters:</strong> The upgrade supports studies of
+              quantum behavior, relativity, and dark matter search techniques.
+            </p>
+            <div class="experiment-tags">
+              <span>Quantum science</span>
+              <span>Cold atoms</span>
+              <span>Physics</span>
+            </div>
+            <a
+              class="experiment-source-link"
+              href="https://www.nasa.gov/blogs/spacestation/2026/04/16/station-orbits-higher-as-crew-runs-new-science-experiments/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA source
+            </a>
+          </article>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>
+          Sources: NASA Space Station Research Explorer, NASA station research
+          news, and NASA International Space Station blog reports.
+        </p>
+      </footer>
+    </div>
+    <script src="./language-tools.js"></script>
+    <script type="module" src="./experiments.js"></script>
+  </body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <title>Upcoming Space Events / ISS Overhead</title>
+    <meta
+      name="description"
+      content="Upcoming space launches and mission milestones, including ISS flights, lunar landers, Mars mission updates, Artemis, and NASA science missions."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="page-tabs" aria-label="Main sections">
+        <a class="page-tab" href="./mission.html">Mission Control</a>
+        <a class="page-tab" href="./settings.html">Settings</a>
+        <a class="page-tab" href="./crew.html">Crew</a>
+        <a class="page-tab" href="./experiments.html">Experiments</a>
+        <a class="page-tab" href="./student-programs.html">Student Programs</a>
+        <a class="page-tab" href="./space-careers.html">Space Careers</a>
+        <a class="page-tab" href="./live-lessons.html">Live Lessons</a>
+        <a class="page-tab" href="./station-images.html">Station Images</a>
+        <a class="page-tab is-active" href="./upcoming-space-events.html" aria-current="page">Space Events</a>
+      </nav>
+
+      <header class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">Launches / Mission milestones</p>
+          <h1>Upcoming Space Events</h1>
+          <p class="hero-text">
+            A month-by-month view of upcoming space missions: station cargo and
+            crew launches, lunar landers, Mars mission milestones, Artemis, and
+            new NASA science missions.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="./mission.html">Back to Mission Control</a>
+            <a
+              class="button button-secondary"
+              href="https://www.nasa.gov/event-type/launch-schedule/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA launch schedule
+            </a>
+            <a
+              class="button button-secondary"
+              href="https://www.nasa.gov/events/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA events
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stat-card">
+          <p class="hero-stat-label">Upcoming events</p>
+          <p id="spaceEventsCountValue" class="hero-stat-value">16 events</p>
+          <p id="spaceEventsUpdatedValue" class="hero-stat-meta">
+            Snapshot checked May 2, 2026
+          </p>
+        </div>
+      </header>
+
+      <main class="panel space-events-panel" aria-labelledby="spaceEventsHeading">
+        <div class="panel-heading space-events-panel-heading">
+          <div>
+            <p class="panel-kicker">Space Events</p>
+            <h2 id="spaceEventsHeading">What's coming up</h2>
+          </div>
+          <p class="crew-panel-note">
+            The app server checks NASA's launch schedule and combines those
+            listings with source-linked mission descriptions. Launch dates can
+            move, so each card links back to the official listing.
+          </p>
+        </div>
+
+        <div class="crew-status-row">
+          <span id="spaceEventsStatusBadge" class="status-badge status-loading">
+            Checking updates
+          </span>
+          <p id="spaceEventsSourceValue" class="crew-source">
+            Loading upcoming space events from the app server.
+          </p>
+        </div>
+
+        <div id="spaceEventsMonthList" class="space-event-month-list">
+          <section class="space-event-month">
+            <h3 class="space-event-month-heading">May 2026</h3>
+            <div class="space-event-grid">
+              <article class="space-event-card">
+                <div class="space-event-card-top">
+                  <p class="space-event-provider">NASA / SpaceX</p>
+                  <span class="space-event-type">ISS cargo launch</span>
+                </div>
+                <h3>NASA's SpaceX CRS-34</h3>
+                <div class="space-event-meta-grid">
+                  <p><strong>Date:</strong> No earlier than May 12, 2026</p>
+                  <p><strong>Category:</strong> International Space Station</p>
+                  <p><strong>Status:</strong> NASA launch schedule</p>
+                </div>
+                <p class="space-event-description">
+                  A SpaceX Dragon cargo spacecraft is scheduled to carry NASA
+                  science investigations, supplies, and equipment to the
+                  International Space Station.
+                </p>
+                <p class="space-event-why">
+                  Cargo missions keep the station supplied and bring up new
+                  research for the crew to run in orbit.
+                </p>
+                <a
+                  class="space-event-link"
+                  href="https://www.nasa.gov/event/nasas-spacex-crs-34/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open NASA event
+                </a>
+              </article>
+
+              <article class="space-event-card">
+                <div class="space-event-card-top">
+                  <p class="space-event-provider">NASA / Katalyst Space Technologies</p>
+                  <span class="space-event-type">Spacecraft servicing</span>
+                </div>
+                <h3>Swift Boost</h3>
+                <div class="space-event-meta-grid">
+                  <p><strong>Date:</strong> No earlier than June 2026</p>
+                  <p><strong>Category:</strong> Science mission extension</p>
+                  <p><strong>Status:</strong> NASA launch schedule</p>
+                </div>
+                <p class="space-event-description">
+                  Katalyst Space Technologies will attempt to rendezvous with
+                  NASA's Neil Gehrels Swift Observatory and raise its orbit.
+                </p>
+                <p class="space-event-why">
+                  The mission is meant to extend Swift's science life while
+                  demonstrating future spacecraft servicing capability.
+                </p>
+                <a
+                  class="space-event-link"
+                  href="https://www.nasa.gov/event/swift-boost/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open NASA event
+                </a>
+              </article>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <p>
+          Sources: NASA Launch Schedule, NASA Events, NASA Science mission
+          pages, NASA Station updates, and the Canadian Space Agency.
+        </p>
+      </footer>
+    </div>
+    <script src="./language-tools.js"></script>
+    <script type="module" src="./upcoming-space-events.js"></script>
+  </body>
+</html>

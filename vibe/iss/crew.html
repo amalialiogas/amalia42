@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="origin" />
+    <title>Current ISS Crew / ISS Overhead</title>
+    <meta
+      name="description"
+      content="Current International Space Station crew list and short bios for ISS Overhead."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="page-tabs" aria-label="Main sections">
+        <a class="page-tab" href="./mission.html">Mission Control</a>
+        <a class="page-tab" href="./settings.html">Settings</a>
+        <a class="page-tab is-active" href="./crew.html" aria-current="page">Crew</a>
+        <a class="page-tab" href="./experiments.html">Experiments</a>
+        <a class="page-tab" href="./student-programs.html">Student Programs</a>
+        <a class="page-tab" href="./space-careers.html">Space Careers</a>
+        <a class="page-tab" href="./live-lessons.html">Live Lessons</a>
+        <a class="page-tab" href="./station-images.html">Station Images</a>
+        <a class="page-tab" href="./upcoming-space-events.html">Space Events</a>
+      </nav>
+
+      <header class="hero panel crew-hero">
+        <div class="hero-copy">
+          <p class="eyebrow">People on orbit / Live roster</p>
+          <h1>Current ISS crew</h1>
+          <p class="hero-text">
+            The people living and working aboard the International Space Station,
+            with roster details refreshed from a maintained crew feed.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="./mission.html">Back to Mission Control</a>
+            <a
+              class="button button-secondary"
+              href="https://www.nasa.gov/mission/expedition-74/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              NASA roster
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-stat-card">
+          <p class="hero-stat-label">ISS crew count</p>
+          <p id="crewCountValue" class="hero-stat-value">Loading</p>
+          <p id="crewUpdatedValue" class="hero-stat-meta">Checking live crew feed</p>
+        </div>
+      </header>
+
+      <main class="panel crew-panel" aria-labelledby="crewHeading">
+        <div class="panel-heading crew-panel-heading">
+          <div>
+            <p class="panel-kicker">Current residents</p>
+            <h2 id="crewHeading">Crew bios</h2>
+          </div>
+          <p class="crew-panel-note">
+            This page loads the current ISS roster from the app server and
+            refreshes automatically while open. If the feed is unavailable, it
+            falls back to the last bundled roster.
+          </p>
+        </div>
+
+        <div class="crew-status-row">
+          <span id="crewStatusBadge" class="status-badge status-loading">Loading crew</span>
+          <p id="crewSourceValue" class="crew-source">Connecting to live crew feed.</p>
+        </div>
+
+        <div id="crewGrid" class="crew-grid" aria-live="polite"></div>
+      </main>
+
+      <footer class="footer">
+        <p>
+          Built with Leaflet and Natural Earth land outlines. Live position data
+          is sourced from the public Where The ISS At API.
+        </p>
+      </footer>
+    </div>
+    <script src="./language-tools.js"></script>
+    <script src="./crew.js"></script>
+  </body>
+</html>
