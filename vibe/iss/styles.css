@@ -507,6 +507,7 @@ body {
   justify-content: end;
   font-size: 0.92rem;
   color: var(--muted);
+  max-width: 36rem;
 }
 
 .legend-item {
@@ -533,6 +534,17 @@ body {
   border-radius: 999px;
   background:
     linear-gradient(90deg, rgba(47, 124, 247, 0.18), rgba(47, 124, 247, 1));
+}
+
+.legend-line-future {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #ffb000 0,
+      #ffb000 0.42rem,
+      transparent 0.42rem,
+      transparent 0.72rem
+    );
 }
 
 .map-shell {

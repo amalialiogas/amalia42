@@ -3,6 +3,10 @@
   const TRAIL_WINDOW_SECONDS = 90 * 60;
   const TRAIL_STEP_SECONDS = 600;
   const TRAIL_SEED_POINTS = 10;
+  const FORECAST_WINDOW_SECONDS = 90 * 60;
+  const FORECAST_STEP_SECONDS = 600;
+  const FORECAST_POINTS = Math.floor(FORECAST_WINDOW_SECONDS / FORECAST_STEP_SECONDS);
+  const FORECAST_REFRESH_SECONDS = 60;
   const DEFAULT_WATCH_RADIUS_KM = 550;
   const STORAGE_KEY = "issOverhead.localViewerProfile";
 
@@ -59,8 +63,11 @@
   const state = {
     activeApiBase: null,
     autoFollow: true,
+    forecast: [],
+    forecastUpdatedAt: 0,
     history: [],
     isBooted: false,
+    isForecastRefreshing: false,
     isRefreshing: false,
     lastError: null,
     latest: null,
@@ -87,6 +94,7 @@
 
   const basemapLayer = L.layerGroup().addTo(map);
   const trailLayer = L.layerGroup().addTo(map);
+  const forecastLayer = L.layerGroup().addTo(map);
   const gridLayer = L.layerGroup().addTo(map);
   const footprintCircle = L.circle([0, 0], {
     color: "#0f5ec9",
@@ -640,6 +648,7 @@
     state.latest = snapshot;
     upsertHistory(snapshot);
     redrawPath();
+    refreshForecast(snapshot);
     updateMap(snapshot);
     updateTelemetry(snapshot, lastSnapshot);
     syncLocationWatchState(snapshot);
@@ -675,6 +684,7 @@
 
   function redrawPath() {
     trailLayer.clearLayers();
+    forecastLayer.clearLayers();
 
     const segments = splitAtDateline(state.history);
     segments.forEach(function (segment) {
@@ -688,6 +698,35 @@
         weight: 3.5,
       }).addTo(trailLayer);
     });
+
+    const forecastPoints = getForecastPathPoints(state.latest);
+    const forecastSegments = splitAtDateline(forecastPoints);
+    forecastSegments.forEach(function (segment) {
+      if (segment.length < 2) {
+        return;
+      }
+
+      L.polyline(segment, {
+        color: "#ffb000",
+        dashArray: "8 10",
+        interactive: false,
+        opacity: 0.95,
+        weight: 3.2,
+      }).addTo(forecastLayer);
+    });
+
+    if (forecastPoints.length > 1) {
+      const destination = forecastPoints[forecastPoints.length - 1];
+      L.circleMarker([destination.latitude, destination.longitude], {
+        color: "#ffb000",
+        fillColor: "#ffcc66",
+        fillOpacity: 0.95,
+        interactive: false,
+        opacity: 1,
+        radius: 5,
+        weight: 2,
+      }).addTo(forecastLayer);
+    }
   }
 
   function updateMap(snapshot) {
@@ -706,7 +745,6 @@
     const headingDegrees = lastSnapshot ? calculateBearing(lastSnapshot, snapshot) : null;
     const headingLabel = headingDegrees === null ? "--" : describeBearing(headingDegrees);
     const sectorLabel = describeSector(snapshot.latitude, snapshot.longitude);
-    const trailMinutes = getTrailMinutes();
 
     elements.latitudeValue.textContent = formatCoordinate(snapshot.latitude, "N", "S");
     elements.longitudeValue.textContent = formatCoordinate(snapshot.longitude, "E", "W");
@@ -715,9 +753,7 @@
     elements.visibilityValue.textContent = sentenceCase(snapshot.visibility);
     elements.headingValue.textContent = headingLabel;
     elements.footprintValue.textContent = `${formatNumber(snapshot.footprint, 0)} km`;
-    elements.sampleCountValue.textContent = String(state.history.length);
-    elements.trailWindowValue.textContent =
-      trailMinutes > 0 ? `${trailMinutes} min of recent orbit` : "--";
+    updatePathMetrics(snapshot);
     elements.positionSummary.textContent = `${formatCoordinate(
       snapshot.latitude,
       "N",
@@ -739,6 +775,52 @@
     }
     if (elements.sectorValue) {
       elements.sectorValue.textContent = sectorLabel;
+    }
+  }
+
+  async function refreshForecast(snapshot, options) {
+    if (!snapshot || state.isForecastRefreshing) {
+      return;
+    }
+
+    const now = Math.floor(Date.now() / 1000);
+    if (!(options && options.force) && now - state.forecastUpdatedAt < FORECAST_REFRESH_SECONDS) {
+      return;
+    }
+
+    state.isForecastRefreshing = true;
+    state.forecastUpdatedAt = now;
+
+    try {
+      const startTimestamp = Math.max(snapshot.timestamp, now);
+      const timestamps = Array.from({ length: FORECAST_POINTS }, function (_, index) {
+        return String(startTimestamp + (index + 1) * FORECAST_STEP_SECONDS);
+      }).join(",");
+
+      const snapshots = await requestIss("/satellites/25544/positions", {
+        timestamps,
+        units: "kilometers",
+      });
+
+      state.forecast = snapshots
+        .map(normalizeSnapshot)
+        .filter(isValidPoint)
+        .filter(function (entry) {
+          return entry.timestamp > snapshot.timestamp;
+        })
+        .sort(function (left, right) {
+          return left.timestamp - right.timestamp;
+        });
+
+      redrawPath();
+      updatePathMetrics(state.latest);
+    } catch (error) {
+      console.error(error);
+      state.forecast = [];
+      redrawPath();
+      updatePathMetrics(state.latest);
+    } finally {
+      state.isForecastRefreshing = false;
     }
   }
 
@@ -1107,6 +1189,46 @@
     const firstTimestamp = state.history[0].timestamp;
     const lastTimestamp = state.history[state.history.length - 1].timestamp;
     return Math.round((lastTimestamp - firstTimestamp) / 60);
+  }
+
+  function getForecastPathPoints(snapshot) {
+    if (!snapshot) {
+      return [];
+    }
+
+    const upcomingPoints = state.forecast.filter(function (entry) {
+      return entry.timestamp > snapshot.timestamp;
+    });
+
+    return [snapshot].concat(upcomingPoints);
+  }
+
+  function getForecastMinutes(snapshot) {
+    const forecastPoints = getForecastPathPoints(snapshot);
+    if (forecastPoints.length < 2) {
+      return 0;
+    }
+
+    const firstTimestamp = forecastPoints[0].timestamp;
+    const lastTimestamp = forecastPoints[forecastPoints.length - 1].timestamp;
+    return Math.round((lastTimestamp - firstTimestamp) / 60);
+  }
+
+  function updatePathMetrics(snapshot) {
+    if (!snapshot) {
+      return;
+    }
+
+    const trailMinutes = getTrailMinutes();
+    const forecastMinutes = getForecastMinutes(snapshot);
+    const forecastSampleCount = Math.max(getForecastPathPoints(snapshot).length - 1, 0);
+    const totalSamples = state.history.length + forecastSampleCount;
+
+    elements.sampleCountValue.textContent = String(totalSamples);
+    elements.trailWindowValue.textContent =
+      trailMinutes > 0 || forecastMinutes > 0
+        ? `Past ${trailMinutes || "--"} min / next ${forecastMinutes || "--"} min`
+        : "--";
   }
 
   function calculateBearing(fromPoint, toPoint) {

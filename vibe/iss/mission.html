@@ -7,7 +7,7 @@
     <title>Mission Control / ISS Overhead</title>
     <meta
       name="description"
-      content="A live web app for tracking the International Space Station with an interactive map and recent orbital trail."
+      content="A live web app for tracking the International Space Station with an interactive map, recent orbit trail, and projected forward path."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -22,6 +22,24 @@
       crossorigin=""
     />
     <link rel="stylesheet" href="./styles.css" />
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W05ENH4Q9Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W05ENH4Q9Q');
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W05ENH4Q9Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W05ENH4Q9Q');
+</script>
   </head>
   <body>
     <div class="page-shell">
@@ -43,8 +61,8 @@
           <h1>ISS Overhead</h1>
           <p class="hero-text">
             Follow the International Space Station in real time, explore its
-            recent orbital path, and see exactly where it is right now on an
-            interactive world map.
+            recent orbital path, see where it is heading next, and find exactly
+            where it is right now on an interactive world map.
           </p>
           <div class="hero-actions">
             <button id="followToggle" class="button button-primary" type="button">
@@ -92,7 +110,11 @@
               </span>
               <span class="legend-item">
                 <span class="legend-line"></span>
-                Last 90 minutes
+                Blue line: where the ISS has been
+              </span>
+              <span class="legend-item">
+                <span class="legend-line legend-line-future"></span>
+                Orange dotted line: where the ISS is heading
               </span>
             </div>
           </div>
@@ -167,11 +189,11 @@
                 <p id="footprintValue" class="metric-value">--</p>
               </article>
               <article class="metric-card">
-                <p class="metric-label">Trail samples</p>
+                <p class="metric-label">Path samples</p>
                 <p id="sampleCountValue" class="metric-value">--</p>
               </article>
               <article class="metric-card metric-card-wide">
-                <p class="metric-label">Trail window</p>
+                <p class="metric-label">Path window</p>
                 <p id="trailWindowValue" class="metric-value">--</p>
               </article>
             </div>
@@ -188,7 +210,8 @@
 
           <ul class="notes-list">
             <li>The live marker updates every few seconds using public ISS telemetry.</li>
-            <li>The blue line shows the last 90 minutes of sampled positions, roughly one orbit.</li>
+            <li>The blue line shows where the ISS has already been during the past 90 minutes.</li>
+            <li>The orange dotted line shows where the ISS is heading next, using projected positions for the next 90 minutes.</li>
             <li>The larger halo estimates the station’s ground visibility footprint.</li>
           </ul>
         </section>
